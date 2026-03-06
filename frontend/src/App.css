@@ -1,0 +1,94 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+}
+
+/* ---- Hero ---- */
+.hero {
+  text-align: center;
+  padding: 48px 0 16px;
+}
+
+.hero-title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+}
+
+.hero-gradient {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-desc {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 620px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.hero-desc strong {
+  color: var(--accent-primary);
+}
+
+/* ---- Error Banner ---- */
+.error-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(248, 113, 113, 0.25);
+  border-radius: var(--radius-md);
+  margin: 16px 0;
+  color: var(--error);
+  font-size: 0.9rem;
+}
+
+.error-banner span {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+/* ---- Footer ---- */
+.app-footer {
+  text-align: center;
+  padding: 24px;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.app-footer strong {
+  color: var(--text-secondary);
+}
+
+.footer-sub {
+  font-size: 0.72rem;
+  margin-top: 4px;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+@media (max-width: 700px) {
+  .hero-title {
+    font-size: 1.8rem;
+  }
+  .hero-desc {
+    font-size: 0.95rem;
+  }
+}
