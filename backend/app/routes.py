@@ -4,8 +4,12 @@ All endpoint definitions for the startup helper agent.
 """
 
 import json
-from fastapi import APIRouter, HTTPException
+import asyncio
+from functools import partial
+from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import StreamingResponse
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 
 from app.models import (
     StartupPlanRequest,
@@ -28,18 +32,37 @@ from app.prompts import (
 from app.nova_client import nova_client
 
 router = APIRouter(prefix="/api", tags=["Founder Copilot"])
+limiter = Limiter(key_func=get_remote_address)
+
+
+async def _invoke_async(system_prompt, user_prompt, model, temperature, max_tokens):
+    """Run the blocking boto3 call in a thread to avoid blocking the event loop.
+    Returns (content, tokens_used) tuple."""
+    loop = asyncio.get_event_loop()
+    return await loop.run_in_executor(
+        None,
+        partial(
+            nova_client.invoke,
+            system_prompt=system_prompt,
+            user_prompt=user_prompt,
+            model=model,
+            temperature=temperature,
+            max_tokens=max_tokens,
+        ),
+    )
 
 
 # ============================================
 # FEATURE 1: Startup Plan Generator
 # ============================================
 @router.post("/generate/startup-plan", response_model=GenerationResponse)
-async def generate_startup_plan(request: StartupPlanRequest):
+@limiter.limit("10/minute")
+async def generate_startup_plan(request: StartupPlanRequest, req: Request):
     """Generate a comprehensive startup plan from an idea."""
     try:
         user_prompt = STARTUP_PLAN_PROMPT.format(user_input=request.idea)
 
-        content = nova_client.invoke(
+        content, tokens_used = await _invoke_async(
             system_prompt=SYSTEM_PROMPT,
             user_prompt=user_prompt,
             model=request.model.value,
@@ -51,6 +74,7 @@ async def generate_startup_plan(request: StartupPlanRequest):
             feature=FeatureType.STARTUP_PLAN,
             content=content,
             model_used=request.model.value,
+            tokens_used=tokens_used,
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
@@ -60,14 +84,15 @@ async def generate_startup_plan(request: StartupPlanRequest):
 # FEATURE 2: Technical Architecture Generator
 # ============================================
 @router.post("/generate/tech-architecture", response_model=GenerationResponse)
-async def generate_tech_architecture(request: TechArchitectureRequest):
+@limiter.limit("10/minute")
+async def generate_tech_architecture(request: TechArchitectureRequest, req: Request):
     """Generate technical architecture for a product."""
     try:
         user_prompt = TECH_ARCHITECTURE_PROMPT.format(
             product_description=request.product_description
         )
 
-        content = nova_client.invoke(
+        content, tokens_used = await _invoke_async(
             system_prompt=SYSTEM_PROMPT,
             user_prompt=user_prompt,
             model=request.model.value,
@@ -79,6 +104,7 @@ async def generate_tech_architecture(request: TechArchitectureRequest):
             feature=FeatureType.TECH_ARCHITECTURE,
             content=content,
             model_used=request.model.value,
+            tokens_used=tokens_used,
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
@@ -88,7 +114,8 @@ async def generate_tech_architecture(request: TechArchitectureRequest):
 # FEATURE 3: GitHub Issues Generator
 # ============================================
 @router.post("/generate/github-issues", response_model=GenerationResponse)
-async def generate_github_issues(request: GitHubIssuesRequest):
+@limiter.limit("10/minute")
+async def generate_github_issues(request: GitHubIssuesRequest, req: Request):
     """Generate GitHub issues for MVP development."""
     try:
         user_prompt = GITHUB_ISSUES_PROMPT.format(
@@ -97,7 +124,7 @@ async def generate_github_issues(request: GitHubIssuesRequest):
             tech_stack=request.tech_stack,
         )
 
-        content = nova_client.invoke(
+        content, tokens_used = await _invoke_async(
             system_prompt=SYSTEM_PROMPT,
             user_prompt=user_prompt,
             model=request.model.value,
@@ -109,6 +136,7 @@ async def generate_github_issues(request: GitHubIssuesRequest):
             feature=FeatureType.GITHUB_ISSUES,
             content=content,
             model_used=request.model.value,
+            tokens_used=tokens_used,
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
@@ -118,7 +146,8 @@ async def generate_github_issues(request: GitHubIssuesRequest):
 # FEATURE 4: Pitch Deck Generator
 # ============================================
 @router.post("/generate/pitch-deck", response_model=GenerationResponse)
-async def generate_pitch_deck(request: PitchDeckRequest):
+@limiter.limit("10/minute")
+async def generate_pitch_deck(request: PitchDeckRequest, req: Request):
     """Generate a pitch deck outline."""
     try:
         user_prompt = PITCH_DECK_PROMPT.format(
@@ -126,7 +155,7 @@ async def generate_pitch_deck(request: PitchDeckRequest):
             product_description=request.product_description or request.idea,
         )
 
-        content = nova_client.invoke(
+        content, tokens_used = await _invoke_async(
             system_prompt=SYSTEM_PROMPT,
             user_prompt=user_prompt,
             model=request.model.value,
@@ -138,6 +167,7 @@ async def generate_pitch_deck(request: PitchDeckRequest):
             feature=FeatureType.PITCH_DECK,
             content=content,
             model_used=request.model.value,
+            tokens_used=tokens_used,
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
@@ -147,7 +177,8 @@ async def generate_pitch_deck(request: PitchDeckRequest):
 # AUTO-DETECT: Smart Agent Coordinator
 # ============================================
 @router.post("/generate/auto", response_model=AutoDetectResponse)
-async def auto_generate(request: AutoDetectRequest):
+@limiter.limit("10/minute")
+async def auto_generate(request: AutoDetectRequest, req: Request):
     """
     Auto-detect which feature to use based on user message,
     then generate the appropriate output.
@@ -158,7 +189,7 @@ async def auto_generate(request: AutoDetectRequest):
             user_input=request.message
         )
 
-        detected = nova_client.invoke(
+        detected, _ = await _invoke_async(
             system_prompt=SYSTEM_PROMPT,
             user_prompt=coordinator_prompt,
             model="micro",
@@ -209,7 +240,7 @@ async def auto_generate(request: AutoDetectRequest):
             user_prompt = STARTUP_PLAN_PROMPT.format(user_input=request.message)
             temperature = 0.3
 
-        content = nova_client.invoke(
+        content, _ = await _invoke_async(
             system_prompt=SYSTEM_PROMPT,
             user_prompt=user_prompt,
             model=request.model.value,
@@ -230,7 +261,8 @@ async def auto_generate(request: AutoDetectRequest):
 # STREAMING ENDPOINT
 # ============================================
 @router.post("/generate/stream/{feature}")
-async def generate_stream(feature: FeatureType, request: AutoDetectRequest):
+@limiter.limit("10/minute")
+async def generate_stream(feature: FeatureType, request: AutoDetectRequest, req: Request):
     """Stream generation output for any feature."""
 
     prompt_map = {

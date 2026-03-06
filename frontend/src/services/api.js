@@ -17,6 +17,21 @@ async function apiCall(endpoint, body) {
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({ detail: 'Unknown error' }));
+
+    // Handle FastAPI validation errors (422) with user-friendly messages
+    if (response.status === 422 && Array.isArray(error.detail)) {
+      const messages = error.detail.map((e) => {
+        const field = e.loc?.slice(-1)[0] || 'input';
+        return `${field}: ${e.msg}`;
+      });
+      throw new Error(messages.join('. '));
+    }
+
+    // Handle rate limiting (429)
+    if (response.status === 429) {
+      throw new Error('Too many requests. Please wait a moment and try again.');
+    }
+
     throw new Error(error.detail || `API error: ${response.status}`);
   }
 
@@ -26,14 +41,14 @@ async function apiCall(endpoint, body) {
 /**
  * Generate a Startup Plan
  */
-export async function generateStartupPlan(idea, model = 'pro') {
+export async function generateStartupPlan(idea, model = 'premier') {
   return apiCall('/generate/startup-plan', { idea, model });
 }
 
 /**
  * Generate Technical Architecture
  */
-export async function generateTechArchitecture(productDescription, model = 'pro') {
+export async function generateTechArchitecture(productDescription, model = 'premier') {
   return apiCall('/generate/tech-architecture', {
     product_description: productDescription,
     model,
@@ -47,7 +62,7 @@ export async function generateGitHubIssues(
   productName,
   productDescription,
   techStack = 'To be determined',
-  model = 'pro'
+  model = 'premier'
 ) {
   return apiCall('/generate/github-issues', {
     product_name: productName,
@@ -60,7 +75,7 @@ export async function generateGitHubIssues(
 /**
  * Generate Pitch Deck
  */
-export async function generatePitchDeck(idea, productDescription = '', model = 'pro') {
+export async function generatePitchDeck(idea, productDescription = '', model = 'premier') {
   return apiCall('/generate/pitch-deck', {
     idea,
     product_description: productDescription,
@@ -71,14 +86,14 @@ export async function generatePitchDeck(idea, productDescription = '', model = '
 /**
  * Auto-detect feature and generate
  */
-export async function autoGenerate(message, model = 'pro', context = null) {
+export async function autoGenerate(message, model = 'premier', context = null) {
   return apiCall('/generate/auto', { message, model, context });
 }
 
 /**
  * Stream generation (SSE)
  */
-export async function streamGenerate(feature, message, model = 'pro', onChunk) {
+export async function streamGenerate(feature, message, model = 'premier', onChunk) {
   const response = await fetch(`${API_BASE}/generate/stream/${feature}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

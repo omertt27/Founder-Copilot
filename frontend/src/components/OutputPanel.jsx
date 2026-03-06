@@ -60,7 +60,8 @@ export default function OutputPanel({ result, feature }) {
             {FEATURE_LABELS[feature] || 'Generated Output'}
           </span>
           <span className="output-model">
-            Model: Nova {result.model_used || 'Pro'}
+            Model: Nova {result.model_used || 'Premier'}
+            {result.tokens_used ? ` · ${result.tokens_used} tokens` : ''}
           </span>
         </div>
         <div className="output-actions">

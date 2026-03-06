@@ -18,6 +18,7 @@ class Settings:
     AWS_REGION: str = os.getenv("AWS_REGION", "us-east-1")
 
     # Amazon Nova Model IDs
+    NOVA_PREMIER_MODEL_ID: str = os.getenv("NOVA_PREMIER_MODEL_ID", "amazon.nova-premier-v1:0")
     NOVA_PRO_MODEL_ID: str = os.getenv("NOVA_PRO_MODEL_ID", "amazon.nova-pro-v1:0")
     NOVA_LITE_MODEL_ID: str = os.getenv("NOVA_LITE_MODEL_ID", "amazon.nova-lite-v1:0")
     NOVA_MICRO_MODEL_ID: str = os.getenv("NOVA_MICRO_MODEL_ID", "amazon.nova-micro-v1:0")
@@ -34,6 +35,7 @@ class Settings:
 
     def __init__(self):
         self.MODEL_MAP = {
+            "premier": self.NOVA_PREMIER_MODEL_ID,
             "pro": self.NOVA_PRO_MODEL_ID,
             "lite": self.NOVA_LITE_MODEL_ID,
             "micro": self.NOVA_MICRO_MODEL_ID,

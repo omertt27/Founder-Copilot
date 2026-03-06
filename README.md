@@ -21,7 +21,8 @@ Turn your startup idea into a comprehensive plan, technical architecture, develo
 
 ### 🤖 Amazon Nova Models Used
 
-- **Nova Pro** — Best quality, comprehensive outputs
+- **Nova Premier** — Most powerful (complex reasoning, code gen, multimodal)
+- **Nova Pro** — High quality, comprehensive outputs
 - **Nova Lite** — Balanced speed and quality
 - **Nova Micro** — Fastest, used for intent detection
 
@@ -31,8 +32,9 @@ Turn your startup idea into a comprehensive plan, technical architecture, develo
 
 ### Backend
 - **Python 3.11+** with **FastAPI**
-- **Amazon Bedrock** (Nova Pro, Nova Lite, Nova Micro)
+- **Amazon Bedrock** (Nova Premier, Nova Pro, Nova Lite, Nova Micro)
 - **boto3** for AWS integration
+- **slowapi** for rate limiting
 
 ### Frontend
 - **React 18** with **Vite**

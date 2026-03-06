@@ -3,12 +3,20 @@ Founder Copilot - FastAPI Application Entry Point
 Amazon Nova AI Hackathon Project
 """
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 
 from app.config import settings
 from app.routes import router
 from app.models import HealthResponse
+
+# ============================================
+# Rate Limiter
+# ============================================
+limiter = Limiter(key_func=get_remote_address)
 
 # ============================================
 # Create FastAPI App
@@ -24,6 +32,9 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc",
 )
+
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # ============================================
 # CORS Middleware
@@ -53,6 +64,7 @@ async def health_check():
         service="Founder Copilot",
         version="1.0.0",
         nova_models={
+            "premier": settings.NOVA_PREMIER_MODEL_ID,
             "pro": settings.NOVA_PRO_MODEL_ID,
             "lite": settings.NOVA_LITE_MODEL_ID,
             "micro": settings.NOVA_MICRO_MODEL_ID,

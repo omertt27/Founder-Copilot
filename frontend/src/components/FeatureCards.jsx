@@ -3,6 +3,7 @@
  * Displays the 4 feature options as clickable cards.
  */
 import React from 'react';
+import { motion } from 'framer-motion';
 import {
   HiLightBulb,
   HiCpuChip,
@@ -49,11 +50,11 @@ const FEATURES = [
 export default function FeatureCards({ selected, onSelect }) {
   return (
     <div className="feature-cards">
-      {FEATURES.map((feature) => {
+      {FEATURES.map((feature, index) => {
         const Icon = feature.icon;
         const isSelected = selected === feature.id;
         return (
-          <button
+          <motion.button
             key={feature.id}
             className={`feature-card ${isSelected ? 'selected' : ''}`}
             onClick={() => onSelect(feature.id)}
@@ -61,6 +62,11 @@ export default function FeatureCards({ selected, onSelect }) {
               '--card-color': feature.color,
               '--card-gradient': feature.gradient,
             }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: index * 0.08 }}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
           >
             <div className="feature-card-icon">
               <Icon />
@@ -68,7 +74,7 @@ export default function FeatureCards({ selected, onSelect }) {
             <h3 className="feature-card-title">{feature.title}</h3>
             <p className="feature-card-desc">{feature.description}</p>
             {isSelected && <div className="feature-card-check">✓</div>}
-          </button>
+          </motion.button>
         );
       })}
     </div>

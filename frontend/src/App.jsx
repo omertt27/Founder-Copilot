@@ -22,7 +22,23 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
-  const [history, setHistory] = useState([]);
+  const [history, setHistory] = useState(() => {
+    try {
+      const saved = localStorage.getItem('founder-copilot-history');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  // Persist history to localStorage
+  React.useEffect(() => {
+    try {
+      localStorage.setItem('founder-copilot-history', JSON.stringify(history));
+    } catch {
+      // localStorage full or unavailable — ignore
+    }
+  }, [history]);
 
   const handleGenerate = useCallback(
     async ({ input, model, productName, techStack }) => {
@@ -149,7 +165,7 @@ export default function App() {
           Hackathon
         </p>
         <p className="footer-sub">
-          Powered by Amazon Bedrock · Nova Pro · Nova Lite · Nova Micro
+          Powered by Amazon Bedrock · Nova Premier · Nova Pro · Nova Lite · Nova Micro
         </p>
       </footer>
     </div>

@@ -25,6 +25,7 @@ const TITLES = {
 };
 
 const MODEL_OPTIONS = [
+  { value: 'premier', label: 'Nova Premier', desc: 'Most powerful' },
   { value: 'pro', label: 'Nova Pro', desc: 'Best quality' },
   { value: 'lite', label: 'Nova Lite', desc: 'Balanced' },
   { value: 'micro', label: 'Nova Micro', desc: 'Fastest' },
@@ -37,7 +38,7 @@ export default function InputPanel({
   extraFields,
 }) {
   const [input, setInput] = useState('');
-  const [model, setModel] = useState('pro');
+  const [model, setModel] = useState('premier');
   const [productName, setProductName] = useState('');
   const [techStack, setTechStack] = useState('');
 

@@ -1,4 +1,4 @@
-#!/Users/omer/Desktop/Founder Copilot/backend/venv/bin/python3.12
+#!/Users/omer/Desktop/Founder Copilot/Founder-Copilot/backend/venv/bin/python3.12
 
 import sys
 import json
