@@ -44,6 +44,7 @@ cd ../frontend && npm install && npm run dev
 | 🏗️ **Tech Architecture** | Full tech stack recommendation with database schema, API endpoints, security considerations | ~7-12s |
 | 📋 **GitHub Issues** | 15-20 prioritized development issues with estimates, acceptance criteria, and labels | ~8-14s |
 | 🎤 **Pitch Deck** | 12-slide investor-ready pitch deck outline with talking points and visual suggestions | ~8-12s |
+| 📣 **Marketing Strategy** | Full go-to-market plan with target audience analysis, channel breakdown, content strategy, and budget allocation (CMO-in-a-box) | ~6-10s |
 | 🤖 **Auto-Detect** | Smart agent that detects your intent and routes to the right feature (uses Nova Micro for fast classification) | ~10-15s |
 | 📡 **Streaming** | Real-time Server-Sent Events for progressive output rendering | Instant chunks |
 
@@ -87,6 +88,7 @@ Here's what each feature generates from a simple prompt like *"AI meeting assist
 | 🏗️ **Tech Architecture** | Next.js + FastAPI + PostgreSQL stack, system architecture diagram, 4-table database schema, 10 API endpoints, security & scaling notes |
 | 📋 **GitHub Issues** | 17 prioritized issues (#1 Project Setup → #17 Rate Limiting), each with priority, estimate (S/M/L), acceptance criteria, and labels |
 | 🎤 **Pitch Deck** | 12 slides (Cover → The Ask), $37B problem stat, TAM/SAM/SOM market sizing, competitive matrix, $2.5M ask with fund allocation |
+| 📣 **Marketing Strategy** | 6-section GTM plan, channel matrix (SEO/Paid/Social/Email), content calendar, persona targeting, 90-day launch roadmap, KPIs |
 
 ---
 
@@ -98,6 +100,7 @@ Here's what each feature generates from a simple prompt like *"AI meeting assist
 | **Tech Architecture generation** | ~4-8 seconds (Nova 2 Lite default) |
 | **GitHub Issues generation** | ~5-10 seconds (Nova 2 Lite default) |
 | **Pitch Deck generation** | ~4-8 seconds (Nova 2 Lite default) |
+| **Marketing Strategy generation** | ~4-8 seconds (Nova 2 Lite default) |
 | **Intent detection (Auto)** | ~1-2 seconds (Nova Micro) |
 | **Demo mode response** | ~1-3 seconds (simulated) |
 | **Average tokens per response** | 1,800 - 3,000 tokens |
@@ -199,7 +202,7 @@ Founder-Copilot/
 │   │   ├── nova_client.py        # Amazon Nova/Bedrock client
 │   │   ├── prompts.py            # All prompt templates (317 lines)
 │   │   ├── models.py             # Pydantic schemas
-│   │   ├── routes.py             # API endpoints (6 routes)
+│   │   ├── routes.py             # API endpoints (7 routes)
 │   │   └── demo_responses.py     # Mock data for demo mode
 │   ├── run.py                    # Server runner
 │   ├── requirements.txt
@@ -233,6 +236,7 @@ Founder-Copilot/
 | `POST` | `/api/generate/tech-architecture` | Generate tech architecture | ✅ 10/min |
 | `POST` | `/api/generate/github-issues` | Generate GitHub issues | ✅ 10/min |
 | `POST` | `/api/generate/pitch-deck` | Generate pitch deck | ✅ 10/min |
+| `POST` | `/api/generate/marketing-strategy` | Generate marketing strategy (CMO) | ✅ 10/min |
 | `POST` | `/api/generate/auto` | Auto-detect & generate | ✅ 10/min |
 | `POST` | `/api/generate/stream/{feature}` | Streaming generation (SSE) | ✅ 10/min |
 | `GET`  | `/health` | Health check (includes `demo_mode` flag) | ❌ |
@@ -259,7 +263,7 @@ Founder Copilot includes a **built-in demo mode** for trying the app without AWS
 | Aspect | Details |
 |--------|---------|
 | **Activation** | Automatic when `AWS_ACCESS_KEY_ID` is empty, or set `DEMO_MODE=true` |
-| **Outputs** | Realistic, pre-written sample content for all 4 features |
+| **Outputs** | Realistic, pre-written sample content for all 5 features |
 | **UI Indicator** | Yellow "Demo Mode" badge in header + banner on outputs |
 | **Latency** | 1-3 seconds simulated delay for realistic feel |
 | **Streaming** | Simulated chunk-by-chunk streaming |
@@ -300,6 +304,14 @@ learning style and pace"
 → Generates: 12-slide deck with market sizing, competitive matrix, and financial projections
 ```
 
+### Example 5: B2B SaaS
+```
+📣 Marketing Strategy: "Project management tool for remote engineering teams"
+  Target Audience: "CTOs and engineering managers at 10-100 person startups"
+  Budget: "$5,000/month"
+→ Generates: Full GTM plan with channel breakdown, content calendar, paid vs organic split, and 90-day launch roadmap
+```
+
 ---
 
 ## 🔒 Security
@@ -325,6 +337,7 @@ learning style and pace"
 - 🎨 **Beautiful UI** — Dark theme with feature-colored accents, Framer Motion animations, responsive design
 - 🧪 **Instantly demoable** — Works out of the box with demo mode (no AWS needed)
 - 📊 **Metrics built-in** — Generation time, token count, and model info displayed on every output
+- 📣 **Full founding team simulation** — Startup Plan (CEO), Tech Architecture (CTO), GitHub Issues (Engineering Lead), Pitch Deck (Investor Relations), Marketing Strategy (CMO)
 
 ---
 
