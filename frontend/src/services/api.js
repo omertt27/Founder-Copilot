@@ -84,6 +84,23 @@ export async function generatePitchDeck(idea, productDescription = '', model = '
 }
 
 /**
+ * Generate Marketing Strategy
+ */
+export async function generateMarketingStrategy(
+  startupIdea,
+  targetAudience = '',
+  budget = '',
+  model = 'nova2lite'
+) {
+  return apiCall('/generate/marketing-strategy', {
+    startup_idea: startupIdea,
+    target_audience: targetAudience || undefined,
+    budget: budget || undefined,
+    model,
+  });
+}
+
+/**
  * Auto-detect feature and generate
  */
 export async function autoGenerate(message, model = 'nova2lite', context = null) {

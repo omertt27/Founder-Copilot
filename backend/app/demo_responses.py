@@ -747,11 +747,233 @@ MeetingAI joins your meetings automatically, listens in real-time, and delivers:
 
 
 # Map feature types to demo responses
+DEMO_MARKETING_STRATEGY = """# 📣 Marketing Strategy: AI-Powered Meeting Assistant
+
+## 1. 🎯 Target Audience Personas
+
+### Persona 1: "Overwhelmed Owen" — Engineering Manager
+- **Role:** Engineering Manager at a 100-person SaaS company
+- **Demographics:** 32-42 years old, $120K-$160K salary, manages team of 6-12
+- **Psychographics:** Values efficiency, hates busywork, wants to be seen as organized leader
+- **Pain Points:**
+  - Spends 2+ hours/day in meetings with nothing actionable afterwards
+  - Action items get lost in Slack threads and email chains
+  - Team misses follow-ups constantly, hurting sprint velocity
+- **Online Behavior:** Active on LinkedIn, reads Hacker News, follows engineering blogs, watches Lenny's Podcast
+- **Key Message:** *"Your next meeting ends with every action item already assigned and tracked — automatically."*
+
+---
+
+### Persona 2: "Busy Beatrice" — Product Manager
+- **Role:** Senior PM at a Series B startup
+- **Demographics:** 28-38 years old, manages 10-15 stakeholder meetings/week
+- **Psychographics:** Driven, detail-oriented, fears dropping balls, wants to scale herself
+- **Pain Points:**
+  - Writing meeting notes eats 45 minutes after every meeting
+  - Stakeholders ask "what did we decide?" constantly
+  - Hard to track decision history across 6-month projects
+- **Online Behavior:** Twitter/X PM community, Product Hunt, Notion templates communities, Mind the Product
+- **Key Message:** *"Stop taking notes. Start shipping product."*
+
+---
+
+### Persona 3: "Scaling Sam" — Startup Founder/CEO
+- **Role:** CEO of a 15-person startup, wears every hat
+- **Demographics:** 30-45, raises money, does customer calls, runs all-hands
+- **Pain Points:**
+  - Investor calls need perfect follow-up emails within hours
+  - Team forgets what was decided in all-hands
+  - No time for admin work
+- **Online Behavior:** Indie Hackers, Y Combinator forums, Twitter startup community, Jason Calacanis podcasts
+- **Key Message:** *"Your AI chief of staff — takes notes, assigns tasks, never forgets."*
+
+---
+
+## 2. 🚀 Go-to-Market Strategy
+
+### Pre-Launch (Weeks 1-4)
+- **Waitlist goal:** 500 signups before launch
+- Build a landing page with one clear CTA: "Join the waitlist"
+- Post a "building in public" thread on Twitter/X documenting the development journey (aim for 3 posts/week)
+- Infiltrate 3 communities: r/productivity, r/projectmanagement, Slack groups for PMs and Engineering Managers
+- Recruit 20 beta users by DM'ing ideal customers on LinkedIn with a personal, problem-focused message
+- Create a "Meeting Hell" survey → share results as a viral data asset
+
+### Launch Week Playbook
+| Day | Action |
+|-----|--------|
+| Monday | Soft launch email to waitlist with personal note from founder |
+| Tuesday | Product Hunt launch — schedule for 12:01 AM PST |
+| Wednesday | HN "Show HN" post with honest story of why you built this |
+| Thursday | LinkedIn article: "I analyzed 500 meetings and here's what I found" |
+| Friday | Twitter/X thread: "We launched, here's what happened (raw numbers)" |
+
+### Post-Launch Growth (Months 2-6)
+- **Primary channel:** LinkedIn content (highest ROI for B2B SaaS)
+- **Secondary channel:** SEO blog targeting "meeting productivity" keywords
+- **Paid:** Start Google Ads at $1K/month once you hit $5K MRR — target "meeting notes software" keywords
+- **Retention:** Weekly email digest of your meetings stats ("You saved 3.2 hours last week")
+- **Expansion:** Add Slack integration — every new workspace install is a new team acquisition
+
+---
+
+## 3. 📝 Content Marketing Plan
+
+### Blog Posts (10 ideas with SEO keywords):
+
+| # | Title | Target Keyword | Est. Monthly Searches |
+|---|-------|---------------|----------------------|
+| 1 | "The True Cost of Meetings (And How to Cut It in Half)" | meeting productivity | 8,100 |
+| 2 | "15 Meeting Note Templates That Actually Work" | meeting notes template | 12,000 |
+| 3 | "How Top Engineering Managers Run Standups" | engineering manager standup | 2,400 |
+| 4 | "AI Meeting Assistant: Complete Guide 2026" | AI meeting assistant | 6,600 |
+| 5 | "How to Write Action Items That Actually Get Done" | meeting action items | 4,400 |
+| 6 | "Zoom vs Teams vs Meet: Which Has Better AI Features?" | AI meeting tools comparison | 3,200 |
+| 7 | "The Remote Team Meeting Playbook" | remote team meetings | 5,400 |
+| 8 | "Meeting Overload: Signs, Causes, and Fixes" | meeting overload | 1,900 |
+| 9 | "How to Run a Weekly Team Sync in 15 Minutes" | team sync meeting | 3,800 |
+| 10 | "Best Practices for Async-First Teams" | async communication tools | 2,100 |
+
+### Social Media Strategy:
+
+**LinkedIn** (Highest priority for B2B)
+- Post frequency: 5x/week
+- Content types: Data insights, "day in the life" posts, before/after meeting notes, customer wins
+- Example posts:
+  1. "We analyzed 10,000 meeting transcripts. Here's the #1 reason action items fail." (carousel)
+  2. "A PM told me she spends 8 hours/week writing meeting notes. I showed her MeetingAI. [screenshot]"
+  3. "Hot take: Most meetings aren't too long. They're just too unstructured. Here's the fix."
+
+**Twitter/X** (Community building)
+- Post frequency: 3x/week
+- Content types: Founder journey, product updates, engagement with PM/EM community
+- Example posts:
+  1. Building in public thread: week-by-week metrics
+  2. "What's your most painful meeting problem? (I'm building something about this)"
+  3. Quick productivity tips that don't require the product
+
+**YouTube** (Long-term SEO asset)
+- Post frequency: 2x/month
+- Content types: Demo videos, "How I run meetings at [company]" interviews, tutorials
+- Example: "I replaced my meeting notes with AI for 30 days — here's what happened"
+
+### Content Calendar (First 3 Months):
+- **Month 1:** Problem awareness — "meeting hell" content, no product pitching
+- **Month 2:** Solution education — how AI transforms meetings, product demos
+- **Month 3:** Social proof — customer stories, case studies, ROI calculators
+
+### Lead Magnets:
+1. **"Meeting Efficiency Calculator"** — enter your team size + avg meetings/week → shows cost of meeting inefficiency in dollars
+2. **"The Ultimate Meeting Agenda Template Pack"** (10 templates for different meeting types) — Google Doc
+3. **"State of Team Meetings 2026"** — original research report based on your beta user data
+
+---
+
+## 4. 📈 Growth Tactics
+
+### Viral Mechanics:
+- **Referral program:** "Invite 3 teammates → get 3 months free" (targets team adoption)
+- **Shareable summaries:** Every meeting summary has a "Share with team" button with MeetingAI branding
+- **Built-in virality:** Slack/Teams bot posts summaries to channel → every team member sees the product
+- **LinkedIn share:** One-click "Share my meeting insights" button showing weekly stats
+
+### Key Partnerships to Pursue:
+| Partner Type | Example | What to Offer | Your Pitch |
+|---|---|---|---|
+| Productivity newsletters | Lenny's Newsletter, TLDR | Sponsored content | "$X CPM, very targeted audience" |
+| Project management tools | Linear, Notion | Integration partnership | "We send action items directly to your tool" |
+| Remote work consultants | Hybrid work coaches | White-label or referral | "20% revenue share on referrals" |
+| HR/People Ops communities | People Ops Society | Free accounts for members | "Help your members run better 1:1s" |
+| Startup communities | YC community, On Deck | Startup discount (50% off) | "Our tool was built by a founder for founders" |
+
+### Community Building:
+- **Community to build:** "Async-First Leaders" Slack community
+- **Platform:** Slack (2,000 target members in Year 1)
+- **Content strategy:** Weekly "meeting teardown" where you analyze a real (anonymized) meeting structure
+- Invite PMs and EMs directly — 5 cold DMs/day on LinkedIn, accept everyone
+
+### Paid Acquisition:
+- **Month 1-3:** $0 paid — focus on organic
+- **Month 4:** Start Google Ads at $1,500/month
+  - Keywords: "meeting notes software", "AI meeting summary", "automatic meeting notes"
+  - Expected CPC: $3-8, expected trial CVR: 8-12%
+- **Month 6:** Test LinkedIn Ads targeting Engineering Managers at 50-500 person companies ($2K/month)
+
+---
+
+## 5. 💬 Messaging Framework
+
+**One-Sentence Value Proposition:**
+> MeetingAI automatically records, transcribes, and summarizes every meeting — then creates action items with owners and deadlines, so your team can focus on doing the work, not documenting it.
+
+**Tagline Options:**
+1. *"Meetings end. Work begins."*
+2. *"Your AI chief of staff — for every meeting."*
+3. *"Stop taking notes. Start shipping."*
+4. *"Every meeting. Every decision. Never forgotten."*
+5. *"From chaos to clarity — in every meeting."*
+
+**60-Second Elevator Pitch:**
+*"You know how after every meeting, half the team has a different recollection of what was decided — and action items just... disappear? MeetingAI fixes that. It joins your Zoom or Teams call, transcribes everything in real time, generates a clean summary in under 60 seconds, and automatically identifies who committed to do what by when. It emails each person their tasks, posts a summary to your Slack channel, and builds a searchable archive of every decision you've ever made. Engineering managers using it save 5-7 hours a week. We're currently in beta with 40 teams — I'd love to show you a 5-minute demo."*
+
+**Landing Page Copy Structure:**
+- **Headline:** "Your meetings finally have a memory."
+- **Subheadline:** "MeetingAI automatically summarizes every call and assigns action items — so nothing falls through the cracks."
+- **Primary CTA:** "Start free — no credit card"
+- **Social Proof Hook:** Collect and display: team count, meetings processed, hours saved
+- **3 Key Feature Sections:**
+  1. 🎙️ **Auto-Record & Transcribe** — *"Joins any meeting automatically. Captures every word with speaker labels."*
+  2. ⚡ **AI Summaries in 60 Seconds** — *"Decision highlights, key discussion points, and full transcript — ready before you've left the room."*
+  3. ✅ **Action Items That Stick** — *"Automatically assigns tasks with owners and deadlines. Syncs to Slack, Linear, and Jira."*
+
+---
+
+## 6. 📊 Metrics & KPIs
+
+**North Star Metric:** Weekly Active Teams (teams that process ≥3 meetings/week)
+
+**Acquisition Metrics:**
+| Channel | Metric | 3-Month Target | 6-Month Target |
+|---------|--------|---------------|---------------|
+| Organic/SEO | Monthly website visitors | 2,000 | 8,000 |
+| LinkedIn | Post impressions/week | 15,000 | 50,000 |
+| Product Hunt | Launch day upvotes | 300+ | — |
+| Referral | % new signups from referral | 10% | 25% |
+| Paid (Google) | Trial starts/month | — | 80 |
+
+**Retention Metrics:**
+- Day 7 retention target: 45%
+- Day 30 retention target: 30%
+- NPS target: 45+ (by Month 6)
+
+**Revenue Metrics:**
+- MRR target at Month 3: $5,000
+- MRR target at Month 6: $20,000
+- Target CAC (blended): Under $150
+- Target LTV:CAC ratio: 4:1 minimum
+
+**Recommended Tool Stack:**
+| Category | Tool | Cost |
+|----------|------|------|
+| Analytics | PostHog (self-hosted) | Free |
+| Email | ConvertKit | $29/month |
+| CRM | HubSpot (free tier) | Free |
+| Social scheduling | Buffer | $18/month |
+| SEO | Ahrefs | $99/month (skip until Month 4) |
+| Customer feedback | Canny | Free tier |
+
+---
+
+*📣 Generated by Founder Copilot — Powered by Amazon Nova AI*
+"""
+
+
 DEMO_RESPONSES = {
     "startup_plan": DEMO_STARTUP_PLAN,
     "tech_architecture": DEMO_TECH_ARCHITECTURE,
     "github_issues": DEMO_GITHUB_ISSUES,
     "pitch_deck": DEMO_PITCH_DECK,
+    "marketing_strategy": DEMO_MARKETING_STRATEGY,
 }
 
 # Simulated token counts (realistic for these lengths)
@@ -760,6 +982,7 @@ DEMO_TOKEN_COUNTS = {
     "tech_architecture": 2156,
     "github_issues": 2934,
     "pitch_deck": 2512,
+    "marketing_strategy": 2788,
 }
 
 # Intent detection demo — returns a plausible feature based on keywords
@@ -768,6 +991,7 @@ INTENT_KEYWORDS = {
     "tech_architecture": ["architecture", "tech", "stack", "database", "api", "build", "system", "backend", "frontend"],
     "github_issues": ["issues", "backlog", "sprint", "tasks", "development", "github", "jira"],
     "pitch_deck": ["pitch", "deck", "investor", "presentation", "funding", "raise"],
+    "marketing_strategy": ["marketing", "gtm", "go-to-market", "growth", "content", "audience", "brand", "channel", "social", "ads", "seo", "launch"],
 }
 
 

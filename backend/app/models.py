@@ -24,6 +24,7 @@ class FeatureType(str, Enum):
     TECH_ARCHITECTURE = "tech_architecture"
     GITHUB_ISSUES = "github_issues"
     PITCH_DECK = "pitch_deck"
+    MARKETING_STRATEGY = "marketing_strategy"
     AUTO_DETECT = "auto_detect"
 
 
@@ -59,6 +60,14 @@ class PitchDeckRequest(BaseModel):
         default="",
         description="Detailed product description (optional)"
     )
+    model: NovaModel = Field(default=NovaModel.NOVA2LITE, description="Nova model to use")
+
+
+class MarketingStrategyRequest(BaseModel):
+    """Request for generating a marketing strategy."""
+    startup_idea: str = Field(..., description="The startup idea description", min_length=10)
+    target_audience: Optional[str] = Field(default=None, description="Target audience description")
+    budget: Optional[str] = Field(default=None, description="Budget range (e.g. '$5K/month')")
     model: NovaModel = Field(default=NovaModel.NOVA2LITE, description="Nova model to use")
 
 

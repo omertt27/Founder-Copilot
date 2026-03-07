@@ -14,6 +14,7 @@ import {
   generateTechArchitecture,
   generateGitHubIssues,
   generatePitchDeck,
+  generateMarketingStrategy,
 } from './services/api.js';
 import './App.css';
 
@@ -48,7 +49,7 @@ export default function App() {
   };
 
   const handleGenerate = useCallback(
-    async ({ input, model, productName, techStack }) => {
+    async ({ input, model, productName, techStack, targetAudience, budget }) => {
       const feature = selectedFeatureRef.current;
       if (!feature) return;
 
@@ -75,6 +76,14 @@ export default function App() {
             break;
           case 'pitch_deck':
             response = await generatePitchDeck(input, '', model);
+            break;
+          case 'marketing_strategy':
+            response = await generateMarketingStrategy(
+              input,
+              targetAudience,
+              budget,
+              model
+            );
             break;
           default:
             throw new Error('Please select a feature first');
@@ -121,8 +130,8 @@ export default function App() {
           </h2>
           <p className="hero-desc">
             Powered by <strong>Amazon Nova AI</strong> — generate startup plans,
-            technical architecture, development backlogs, and pitch decks in
-            seconds.
+            technical architecture, development backlogs, pitch decks, and
+            marketing strategies in seconds.
           </p>
         </section>
 

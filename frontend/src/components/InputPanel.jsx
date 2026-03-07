@@ -1,7 +1,3 @@
-/**
- * Input Panel Component
- * Handles user input for the selected feature.
- */
 import React, { useState } from 'react';
 import { HiPaperAirplane, HiArrowPath } from 'react-icons/hi2';
 import './InputPanel.css';
@@ -15,6 +11,8 @@ const PLACEHOLDERS = {
     'Describe the product to create issues for... e.g. "Developer tool that uses AI to automatically write documentation from code"',
   pitch_deck:
     'Describe your startup for the pitch deck... e.g. "AI-powered meeting assistant that records, summarizes, and creates action items"',
+  marketing_strategy:
+    'Describe your startup idea... e.g. "AI-powered meeting assistant that records meetings and automatically creates action items with assignees"',
 };
 
 const TITLES = {
@@ -22,6 +20,7 @@ const TITLES = {
   tech_architecture: '🏗️ Describe Your Product',
   github_issues: '📋 Describe Your Project',
   pitch_deck: '🎤 Describe Your Startup',
+  marketing_strategy: '📣 Describe Your Startup',
 };
 
 const MODEL_OPTIONS = [
@@ -31,16 +30,13 @@ const MODEL_OPTIONS = [
   { value: 'micro',     label: 'Nova Micro',   desc: 'Fastest' },
 ];
 
-export default function InputPanel({
-  feature,
-  onGenerate,
-  loading,
-  extraFields,
-}) {
+export default function InputPanel({ feature, onGenerate, loading }) {
   const [input, setInput] = useState('');
   const [model, setModel] = useState('nova2lite');
   const [productName, setProductName] = useState('');
   const [techStack, setTechStack] = useState('');
+  const [targetAudience, setTargetAudience] = useState('');
+  const [budget, setBudget] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,6 +47,8 @@ export default function InputPanel({
       model,
       productName: productName.trim() || 'My Startup',
       techStack: techStack.trim() || 'To be determined',
+      targetAudience: targetAudience.trim() || '',
+      budget: budget.trim() || '',
     });
   };
 
@@ -87,6 +85,32 @@ export default function InputPanel({
               value={techStack}
               onChange={(e) => setTechStack(e.target.value)}
               placeholder="e.g. React, FastAPI, PostgreSQL"
+              disabled={loading}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Extra fields for Marketing Strategy */}
+      {feature === 'marketing_strategy' && (
+        <div className="input-extras">
+          <div className="input-field">
+            <label>Target Audience (optional)</label>
+            <input
+              type="text"
+              value={targetAudience}
+              onChange={(e) => setTargetAudience(e.target.value)}
+              placeholder="e.g. Engineering managers at mid-size tech companies"
+              disabled={loading}
+            />
+          </div>
+          <div className="input-field">
+            <label>Monthly Budget (optional)</label>
+            <input
+              type="text"
+              value={budget}
+              onChange={(e) => setBudget(e.target.value)}
+              placeholder="e.g. $2K/month, bootstrap, $10K"
               disabled={loading}
             />
           </div>

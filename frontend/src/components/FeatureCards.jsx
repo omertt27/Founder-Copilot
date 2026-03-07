@@ -9,6 +9,7 @@ import {
   HiCpuChip,
   HiCodeBracket,
   HiPresentationChartBar,
+  HiMegaphone,
 } from 'react-icons/hi2';
 import './FeatureCards.css';
 
@@ -44,6 +45,14 @@ const FEATURES = [
     icon: HiPresentationChartBar,
     color: '#ff6b9d',
     gradient: 'linear-gradient(135deg, #ff6b9d 0%, #c44569 100%)',
+  },
+  {
+    id: 'marketing_strategy',
+    title: 'Marketing Strategy',
+    description: 'Full go-to-market plan with personas, content calendar, growth tactics, and KPIs',
+    icon: HiMegaphone,
+    color: '#f59e0b',
+    gradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
   },
 ];
 

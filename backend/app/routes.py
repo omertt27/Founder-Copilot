@@ -17,6 +17,7 @@ from app.models import (
     TechArchitectureRequest,
     GitHubIssuesRequest,
     PitchDeckRequest,
+    MarketingStrategyRequest,
     AutoDetectRequest,
     GenerationResponse,
     AutoDetectResponse,
@@ -28,6 +29,7 @@ from app.prompts import (
     TECH_ARCHITECTURE_PROMPT,
     GITHUB_ISSUES_PROMPT,
     PITCH_DECK_PROMPT,
+    MARKETING_STRATEGY_PROMPT,
     AGENT_COORDINATOR_PROMPT,
 )
 from app.nova_client import nova_client
@@ -205,6 +207,45 @@ async def generate_pitch_deck(request: Request, body: PitchDeckRequest):
 
 
 # ============================================
+# FEATURE 5: Marketing Strategy Generator
+# ============================================
+@router.post("/generate/marketing-strategy", response_model=GenerationResponse)
+@limiter.limit("10/minute")
+async def generate_marketing_strategy(request: Request, body: MarketingStrategyRequest):
+    """Generate a comprehensive go-to-market and marketing strategy."""
+    start_time = time.time()
+    try:
+        if settings.DEMO_MODE:
+            content, tokens_used = await get_demo_response("marketing_strategy")
+        else:
+            user_prompt = MARKETING_STRATEGY_PROMPT.format(
+                startup_idea=body.startup_idea,
+                target_audience=body.target_audience or "Not specified — please infer from the startup idea",
+                budget=body.budget or "Bootstrap / minimal budget (under $2K/month)",
+            )
+            content, tokens_used = await _invoke_async(
+                system_prompt=SYSTEM_PROMPT,
+                user_prompt=user_prompt,
+                model=body.model.value,
+                temperature=0.5,
+                max_tokens=4096,
+            )
+
+        elapsed = round(time.time() - start_time, 2)
+
+        return GenerationResponse(
+            feature=FeatureType.MARKETING_STRATEGY,
+            content=content,
+            model_used="demo" if settings.DEMO_MODE else body.model.value,
+            tokens_used=tokens_used,
+            generation_time=elapsed,
+            demo_mode=settings.DEMO_MODE,
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
+
+
+# ============================================
 # AUTO-DETECT: Smart Agent Coordinator
 # ============================================
 @router.post("/generate/auto", response_model=AutoDetectResponse)
@@ -226,6 +267,7 @@ async def auto_generate(request: Request, body: AutoDetectRequest):
                 "tech_architecture": FeatureType.TECH_ARCHITECTURE,
                 "github_issues": FeatureType.GITHUB_ISSUES,
                 "pitch_deck": FeatureType.PITCH_DECK,
+                "marketing_strategy": FeatureType.MARKETING_STRATEGY,
             }
 
             return AutoDetectResponse(
@@ -257,6 +299,7 @@ async def auto_generate(request: Request, body: AutoDetectRequest):
             "tech_architecture": FeatureType.TECH_ARCHITECTURE,
             "github_issues": FeatureType.GITHUB_ISSUES,
             "pitch_deck": FeatureType.PITCH_DECK,
+            "marketing_strategy": FeatureType.MARKETING_STRATEGY,
         }
 
         detected_feature = feature_map.get(detected, FeatureType.STARTUP_PLAN)
@@ -288,6 +331,13 @@ async def auto_generate(request: Request, body: AutoDetectRequest):
                 product_description=ctx.get("product_description", body.message),
             )
             temperature = 0.7
+        elif detected_feature == FeatureType.MARKETING_STRATEGY:
+            user_prompt = MARKETING_STRATEGY_PROMPT.format(
+                startup_idea=body.message,
+                target_audience="Not specified — please infer from the startup idea",
+                budget="Bootstrap / minimal budget (under $2K/month)",
+            )
+            temperature = 0.5
         else:
             user_prompt = STARTUP_PLAN_PROMPT.format(user_input=body.message)
             temperature = 0.3
@@ -358,6 +408,14 @@ async def generate_stream(feature: FeatureType, request: Request, body: AutoDete
                 product_description=body.message,
             ),
             0.7,
+        ),
+        FeatureType.MARKETING_STRATEGY: (
+            MARKETING_STRATEGY_PROMPT.format(
+                startup_idea=body.message,
+                target_audience="Not specified — please infer from the startup idea",
+                budget="Bootstrap / minimal budget (under $2K/month)",
+            ),
+            0.5,
         ),
     }
 

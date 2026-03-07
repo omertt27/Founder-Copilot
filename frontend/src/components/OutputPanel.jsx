@@ -1,17 +1,6 @@
 /**
  * Output Panel Component
- * Renders the generatconst MODEL_LABELS = {
-  // Nova 2 Lite (amazon.nova-2-lite-v1:0)
-  nova2lite: { name: 'Nova 2 Lite',  badge: '⚡ Fast Reasoning' },
-  // Nova Pro  (amazon.nova-pro-v1:0)
-  nova2pro:  { name: 'Nova Pro',     badge: '✨ High Quality' },
-  // Nova Premier (amazon.nova-premier-v1:0)
-  premier:   { name: 'Nova Premier', badge: '🏆 Most Powerful' },
-  // Nova Micro (amazon.nova-micro-v1:0)
-  micro:     { name: 'Nova Micro',   badge: '🚀 Fastest' },
-  // Demo
-  demo:      { name: 'Demo Mode',    badge: '🧪 Sample Output' },
-}; as beautifully styled Markdown.
+ * Renders the generated content as beautifully styled Markdown.
  */
 import React, { useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -23,6 +12,7 @@ import {
   HiCpuChip,
   HiCodeBracket,
   HiPresentationChartBar,
+  HiMegaphone,
   HiSparkles,
   HiClock,
   HiBeaker,
@@ -58,6 +48,13 @@ const FEATURE_META = {
     icon: HiPresentationChartBar,
     color: '#ff6b9d',
     gradient: 'linear-gradient(135deg, #ff6b9d 0%, #c44569 100%)',
+  },
+  marketing_strategy: {
+    label: 'Marketing Strategy',
+    emoji: '📣',
+    icon: HiMegaphone,
+    color: '#f59e0b',
+    gradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
   },
 };
 
