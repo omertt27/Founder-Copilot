@@ -1,6 +1,6 @@
 """
-Founder Copilot - Configuration
-Loads environment variables and app settings.
+Founder Copilot — Configuration
+Loads environment variables and Google GenAI settings.
 """
 
 import os
@@ -12,22 +12,26 @@ load_dotenv()
 class Settings:
     """Application settings loaded from environment variables."""
 
-    # AWS
-    AWS_ACCESS_KEY_ID: str = os.getenv("AWS_ACCESS_KEY_ID", "")
-    AWS_SECRET_ACCESS_KEY: str = os.getenv("AWS_SECRET_ACCESS_KEY", "")
-    AWS_REGION: str = os.getenv("AWS_REGION", "us-east-1")
+    # ── Google GenAI / Gemini ─────────────────────────────────────────────
+    GOOGLE_API_KEY: str = os.getenv("GOOGLE_API_KEY", "")
 
-    # ── Amazon Nova 2 Lite (cross-region inference profile required) ────────
-    NOVA_2_LITE_MODEL_ID: str = os.getenv("NOVA_2_LITE_MODEL_ID", "us.amazon.nova-2-lite-v1:0")
+    # Text + interleaved image generation model
+    GEMINI_MODEL: str = os.getenv("GEMINI_MODEL", "gemini-2.0-flash-preview-image-generation")
 
-    # ── Amazon Nova Pro Gen 1 (cross-region inference profile) ───────────────
-    NOVA_PRO_MODEL_ID: str = os.getenv("NOVA_PRO_MODEL_ID", "us.amazon.nova-pro-v1:0")
+    # Fast model for intent classification / light tasks
+    GEMINI_FLASH_MODEL: str = os.getenv("GEMINI_FLASH_MODEL", "gemini-2.0-flash")
 
-    # ── Amazon Nova Premier + Micro Gen 1 (cross-region inference profiles) ──
-    NOVA_PREMIER_MODEL_ID: str = os.getenv("NOVA_PREMIER_MODEL_ID", "us.amazon.nova-premier-v1:0")
-    NOVA_MICRO_MODEL_ID: str   = os.getenv("NOVA_MICRO_MODEL_ID",   "us.amazon.nova-micro-v1:0")
+    # Imagen 3 model for high-quality standalone image generation
+    IMAGEN_MODEL: str = os.getenv("IMAGEN_MODEL", "imagen-3.0-generate-002")
 
-    # Demo Mode — auto-enabled when no AWS credentials are set
+    # TTS model (Gemini native audio output)
+    TTS_MODEL: str = os.getenv("TTS_MODEL", "gemini-2.5-flash-preview-tts")
+
+    # Google Cloud project (for Cloud Run deployment)
+    GOOGLE_CLOUD_PROJECT: str = os.getenv("GOOGLE_CLOUD_PROJECT", "")
+    GOOGLE_CLOUD_REGION: str = os.getenv("GOOGLE_CLOUD_REGION", "us-central1")
+
+    # Demo Mode — auto-enabled when no API key is set
     DEMO_MODE: bool = os.getenv("DEMO_MODE", "").lower() in ("true", "1", "yes")
 
     # App
@@ -37,23 +41,19 @@ class Settings:
         "CORS_ORIGINS", "http://localhost:5173,http://localhost:3000"
     ).split(",")
 
-    # Model selection mapping  (key used in API requests → Bedrock model ID)
+    # Model selection mapping (key used in API requests → Gemini model ID)
     MODEL_MAP: dict[str, str] = {}
 
     def __init__(self):
         self.MODEL_MAP = {
-            # ── Nova 2 Lite (newest, default) ──
-            "nova2lite":  self.NOVA_2_LITE_MODEL_ID,   # us.amazon.nova-2-lite-v1:0
-            # ── Nova Pro Gen 1 (high quality) ──
-            "nova_pro":   self.NOVA_PRO_MODEL_ID,      # us.amazon.nova-pro-v1:0
-            # ── Nova Premier Gen 1 (most powerful) ──
-            "premier":    self.NOVA_PREMIER_MODEL_ID,  # us.amazon.nova-premier-v1:0
-            # ── Nova Micro Gen 1 (intent detection, fastest) ──
-            "micro":      self.NOVA_MICRO_MODEL_ID,    # us.amazon.nova-micro-v1:0
+            "flash":        self.GEMINI_FLASH_MODEL,         # gemini-2.0-flash (fast)
+            "flash_image":  self.GEMINI_MODEL,               # gemini-2.0-flash-preview-image-generation
+            "imagen":       self.IMAGEN_MODEL,               # imagen-3.0-generate-002
+            "tts":          self.TTS_MODEL,                  # gemini-2.5-flash-preview-tts
         }
 
-        # Auto-enable demo mode when credentials are missing
-        if not self.AWS_ACCESS_KEY_ID or not self.AWS_SECRET_ACCESS_KEY:
+        # Auto-enable demo mode when API key is missing
+        if not self.GOOGLE_API_KEY:
             self.DEMO_MODE = True
 
 
