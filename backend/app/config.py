@@ -17,13 +17,15 @@ class Settings:
     AWS_SECRET_ACCESS_KEY: str = os.getenv("AWS_SECRET_ACCESS_KEY", "")
     AWS_REGION: str = os.getenv("AWS_REGION", "us-east-1")
 
-    # ── Amazon Nova 2 Models (Gen 2 — Hackathon focus) ──────────────────────
-    NOVA_2_PRO_MODEL_ID: str  = os.getenv("NOVA_2_PRO_MODEL_ID",  "amazon.nova-pro-v2:0")
-    NOVA_2_LITE_MODEL_ID: str = os.getenv("NOVA_2_LITE_MODEL_ID", "amazon.nova-lite-v2:0")
+    # ── Amazon Nova 2 Lite (cross-region inference profile required) ────────
+    NOVA_2_LITE_MODEL_ID: str = os.getenv("NOVA_2_LITE_MODEL_ID", "us.amazon.nova-2-lite-v1:0")
 
-    # ── Amazon Nova 1 Models (Gen 1 — kept for Premier + Micro) ─────────────
-    NOVA_PREMIER_MODEL_ID: str = os.getenv("NOVA_PREMIER_MODEL_ID", "amazon.nova-premier-v1:0")
-    NOVA_MICRO_MODEL_ID: str   = os.getenv("NOVA_MICRO_MODEL_ID",   "amazon.nova-micro-v1:0")
+    # ── Amazon Nova Pro (cross-region inference profile) ─────────────────────
+    NOVA_2_PRO_MODEL_ID: str  = os.getenv("NOVA_2_PRO_MODEL_ID",  "us.amazon.nova-pro-v1:0")
+
+    # ── Amazon Nova Premier + Micro (cross-region inference profiles) ────────
+    NOVA_PREMIER_MODEL_ID: str = os.getenv("NOVA_PREMIER_MODEL_ID", "us.amazon.nova-premier-v1:0")
+    NOVA_MICRO_MODEL_ID: str   = os.getenv("NOVA_MICRO_MODEL_ID",   "us.amazon.nova-micro-v1:0")
 
     # Demo Mode — auto-enabled when no AWS credentials are set
     DEMO_MODE: bool = os.getenv("DEMO_MODE", "").lower() in ("true", "1", "yes")
@@ -40,12 +42,14 @@ class Settings:
 
     def __init__(self):
         self.MODEL_MAP = {
-            # ── Nova 2 (new gen — primary choices) ──
-            "nova2lite":  self.NOVA_2_LITE_MODEL_ID,   # default
-            "nova2pro":   self.NOVA_2_PRO_MODEL_ID,    # high quality
-            # ── Nova 1 (kept for Premier power + Micro speed) ──
-            "premier":    self.NOVA_PREMIER_MODEL_ID,  # most powerful
-            "micro":      self.NOVA_MICRO_MODEL_ID,    # intent detection
+            # ── Nova 2 Lite (newest, default) ──
+            "nova2lite":  self.NOVA_2_LITE_MODEL_ID,   # us.amazon.nova-2-lite-v1:0
+            # ── Nova Pro (full-size, high quality) ──
+            "nova2pro":   self.NOVA_2_PRO_MODEL_ID,    # us.amazon.nova-pro-v1:0
+            # ── Nova Premier (most powerful) ──
+            "premier":    self.NOVA_PREMIER_MODEL_ID,  # us.amazon.nova-premier-v1:0
+            # ── Nova Micro (intent detection, fastest) ──
+            "micro":      self.NOVA_MICRO_MODEL_ID,    # us.amazon.nova-micro-v1:0
         }
 
         # Auto-enable demo mode when credentials are missing

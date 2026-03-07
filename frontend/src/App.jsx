@@ -2,7 +2,7 @@
  * Founder Copilot — Main App Component
  * Amazon Nova AI Hackathon Project
  */
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import Header from './components/Header.jsx';
 import FeatureCards from './components/FeatureCards.jsx';
 import InputPanel from './components/InputPanel.jsx';
@@ -19,8 +19,10 @@ import './App.css';
 
 export default function App() {
   const [selectedFeature, setSelectedFeature] = useState(null);
+  const selectedFeatureRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
+  const [resultFeature, setResultFeature] = useState(null); // feature that produced current result
   const [error, setError] = useState(null);
   const [history, setHistory] = useState(() => {
     try {
@@ -40,16 +42,23 @@ export default function App() {
     }
   }, [history]);
 
+  const handleFeatureSelect = (feature) => {
+    setSelectedFeature(feature);
+    selectedFeatureRef.current = feature;
+  };
+
   const handleGenerate = useCallback(
     async ({ input, model, productName, techStack }) => {
+      const feature = selectedFeatureRef.current;
+      if (!feature) return;
+
       setLoading(true);
       setError(null);
-      setResult(null);
 
       try {
         let response;
 
-        switch (selectedFeature) {
+        switch (feature) {
           case 'startup_plan':
             response = await generateStartupPlan(input, model);
             break;
@@ -72,11 +81,12 @@ export default function App() {
         }
 
         setResult(response);
+        setResultFeature(feature);
 
         // Add to history
         setHistory((prev) => [
-          { feature: selectedFeature, input, result: response, timestamp: Date.now() },
-          ...prev.slice(0, 9), // Keep last 10
+          { feature, input, result: response, timestamp: Date.now() },
+          ...prev.slice(0, 9),
         ]);
       } catch (err) {
         setError(err.message || 'Something went wrong. Please try again.');
@@ -84,12 +94,13 @@ export default function App() {
         setLoading(false);
       }
     },
-    [selectedFeature]
+    [] // stable — reads feature from ref, never needs to change
   );
 
   const handleHistorySelect = (item) => {
-    setSelectedFeature(item.feature);
+    handleFeatureSelect(item.feature);
     setResult(item.result);
+    setResultFeature(item.feature);
     setError(null);
   };
 
@@ -119,7 +130,7 @@ export default function App() {
         <section>
           <FeatureCards
             selected={selectedFeature}
-            onSelect={setSelectedFeature}
+            onSelect={handleFeatureSelect}
           />
         </section>
 
@@ -147,7 +158,7 @@ export default function App() {
 
         {/* Output */}
         {result && !loading && (
-          <OutputPanel result={result} feature={selectedFeature} />
+          <OutputPanel result={result} feature={resultFeature} />
         )}
 
         {/* History */}
@@ -165,7 +176,7 @@ export default function App() {
           Hackathon
         </p>
         <p className="footer-sub">
-          Powered by Amazon Bedrock · Nova Premier · Nova Pro · Nova Lite · Nova Micro
+          Powered by Amazon Bedrock · Nova 2 Lite · Nova Pro · Nova Premier · Nova Micro
         </p>
       </footer>
     </div>

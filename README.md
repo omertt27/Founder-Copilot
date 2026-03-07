@@ -62,19 +62,16 @@ cd ../frontend && npm install && npm run dev
 
 ### Feature Selection & Input
 ![Input Panel](docs/screenshots/01-input-panel.png)
-> *Dark-themed UI with 4 feature cards (Startup Plan, Tech Architecture, GitHub Issues, Pitch Deck), model selector showing Nova 2 Lite/Pro, and text input*
 
 ### Generated Output — Startup Plan
-![Output Panel](docs/screenshots/02-output-startup-plan.png)
-> *Beautifully rendered Markdown output with feature-colored accent bar, token count, generation time, copy/download buttons, and Nova 2 model badge*
+![Startup Plan](docs/screenshots/02-startup-plan.png)
+![Startup Plan continued](docs/screenshots/03-startup-plan-2.png)
+![Startup Plan continued](docs/screenshots/04-startup-plan-3.png)
 
-### Demo Mode Active
-![Demo Mode](docs/screenshots/03-demo-mode.png)
-> *Yellow demo mode banner — no AWS credentials required; realistic sample data for all 4 features*
-
-### GitHub Issues Output
-![GitHub Issues](docs/screenshots/04-github-issues.png)
-> *17 prioritized development issues with estimates, acceptance criteria, and labels*
+### Generated Output — GitHub Issues
+![GitHub Issues](docs/screenshots/05-github-issues.png)
+![GitHub Issues continued](docs/screenshots/06-github-issues-2.png)
+![GitHub Issues continued](docs/screenshots/07-github-issues-3.png)
 
 > � **To add screenshots:** Run the app locally (`npm run dev`) and take screenshots at 1280×800 or wider. Save them to `docs/screenshots/` using the filenames above.
 

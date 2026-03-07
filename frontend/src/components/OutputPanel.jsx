@@ -1,6 +1,17 @@
 /**
  * Output Panel Component
- * Renders the generated content as beautifully styled Markdown.
+ * Renders the generatconst MODEL_LABELS = {
+  // Nova 2 Lite (amazon.nova-2-lite-v1:0)
+  nova2lite: { name: 'Nova 2 Lite',  badge: '⚡ Fast Reasoning' },
+  // Nova Pro  (amazon.nova-pro-v1:0)
+  nova2pro:  { name: 'Nova Pro',     badge: '✨ High Quality' },
+  // Nova Premier (amazon.nova-premier-v1:0)
+  premier:   { name: 'Nova Premier', badge: '🏆 Most Powerful' },
+  // Nova Micro (amazon.nova-micro-v1:0)
+  micro:     { name: 'Nova Micro',   badge: '🚀 Fastest' },
+  // Demo
+  demo:      { name: 'Demo Mode',    badge: '🧪 Sample Output' },
+}; as beautifully styled Markdown.
  */
 import React, { useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
