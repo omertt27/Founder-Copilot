@@ -1,10 +1,22 @@
 # 🚀 Founder Copilot
 
-**AI-Powered Startup Helper Agent — Built for the Amazon Nova AI Hackathon**
+**AI-Powered Startup Helper Agent — Built for> 📷 **To add screenshots:** Run the app locally (`npm run dev`) and take screenshots at 1280×800 or wider. Save them to `docs/screenshots/` using the filenames above. See [`docs/SCREENSHOTS.md`](docs/SCREENSHOTS.md) for the full guide.
+
+---
+
+## 🎬 Demo Video
+
+<!-- Add your demo video link here once recorded -->
+> 🎥 **Demo video coming soon** — See [`docs/SCREENSHOTS.md`](docs/SCREENSHOTS.md) for recording instructions.
+>
+> Planned flow: Show the UI → generate a Startup Plan → show GitHub Issues output → demonstrate Demo Mode (no AWS) → show streaming SSE in action.
+
+---e Amazon Nova AI Hackathon**
 
 Turn your startup idea into a comprehensive plan, technical architecture, development backlog, and investor-ready pitch deck — all powered by **Amazon Nova AI** through Amazon Bedrock.
 
 ![Amazon Nova AI](https://img.shields.io/badge/Amazon_Nova_AI-Powered-FF9900?style=for-the-badge&logo=amazon-aws)
+![Nova 2](https://img.shields.io/badge/Nova_2-Lite_%26_Pro-FF9900?style=for-the-badge&logo=amazon-aws)
 ![Python](https://img.shields.io/badge/Python-FastAPI-3776AB?style=for-the-badge&logo=python)
 ![React](https://img.shields.io/badge/React-Vite-61DAFB?style=for-the-badge&logo=react)
 
@@ -39,25 +51,32 @@ cd ../frontend && npm install && npm run dev
 
 | Model | Role | Speed |
 |-------|------|-------|
-| **Nova Premier** | Default — most powerful (complex reasoning, code gen) | ~8-12s |
-| **Nova Pro** | High quality, comprehensive outputs | ~6-10s |
-| **Nova Lite** | Balanced speed and quality | ~4-8s |
-| **Nova Micro** | Intent detection + fastest outputs | ~2-4s |
+| **Nova 2 Lite** | ⚡ Default — Gen 2 fast reasoning, great quality | ~4-8s |
+| **Nova 2 Pro** | ✨ Gen 2 high quality, comprehensive outputs | ~6-10s |
+| **Nova Premier** | 🏆 Gen 1 most powerful (legacy/fallback) | ~8-12s |
+| **Nova Micro** | 🚀 Intent detection + fastest outputs | ~2-4s |
 
 ---
 
 ## 📸 Screenshots
 
 ### Feature Selection & Input
-> *Dark-themed UI with 4 feature cards (Startup Plan, Tech Architecture, GitHub Issues, Pitch Deck), model selector, and text input*
+![Input Panel](docs/screenshots/01-input-panel.png)
+> *Dark-themed UI with 4 feature cards (Startup Plan, Tech Architecture, GitHub Issues, Pitch Deck), model selector showing Nova 2 Lite/Pro, and text input*
 
 ### Generated Output — Startup Plan
-> *Beautifully rendered Markdown output with feature-colored accent bar, token count, generation time, copy/download buttons, and Nova model badge*
+![Output Panel](docs/screenshots/02-output-startup-plan.png)
+> *Beautifully rendered Markdown output with feature-colored accent bar, token count, generation time, copy/download buttons, and Nova 2 model badge*
 
-### Demo Mode
-> *Yellow demo mode banner indicates sample data — no AWS credentials required*
+### Demo Mode Active
+![Demo Mode](docs/screenshots/03-demo-mode.png)
+> *Yellow demo mode banner — no AWS credentials required; realistic sample data for all 4 features*
 
-*💡 Tip: Run the app locally to see the full interactive experience!*
+### GitHub Issues Output
+![GitHub Issues](docs/screenshots/04-github-issues.png)
+> *17 prioritized development issues with estimates, acceptance criteria, and labels*
+
+> � **To add screenshots:** Run the app locally (`npm run dev`) and take screenshots at 1280×800 or wider. Save them to `docs/screenshots/` using the filenames above.
 
 ---
 
@@ -78,10 +97,10 @@ Here's what each feature generates from a simple prompt like *"AI meeting assist
 
 | Metric | Value |
 |--------|-------|
-| **Startup Plan generation** | ~6-10 seconds (Nova Premier) |
-| **Tech Architecture generation** | ~7-12 seconds (Nova Premier) |
-| **GitHub Issues generation** | ~8-14 seconds (Nova Premier) |
-| **Pitch Deck generation** | ~8-12 seconds (Nova Premier) |
+| **Startup Plan generation** | ~4-8 seconds (Nova 2 Lite default) |
+| **Tech Architecture generation** | ~4-8 seconds (Nova 2 Lite default) |
+| **GitHub Issues generation** | ~5-10 seconds (Nova 2 Lite default) |
+| **Pitch Deck generation** | ~4-8 seconds (Nova 2 Lite default) |
 | **Intent detection (Auto)** | ~1-2 seconds (Nova Micro) |
 | **Demo mode response** | ~1-3 seconds (simulated) |
 | **Average tokens per response** | 1,800 - 3,000 tokens |
@@ -94,7 +113,7 @@ Here's what each feature generates from a simple prompt like *"AI meeting assist
 
 ### Backend
 - **Python 3.11+** with **FastAPI**
-- **Amazon Bedrock** (Nova Premier, Nova Pro, Nova Lite, Nova Micro)
+- **Amazon Bedrock** (Nova 2 Lite, Nova 2 Pro, Nova Premier, Nova Micro)
 - **boto3** for AWS integration
 - **slowapi** for rate limiting
 - **Pydantic v2** for request/response validation
@@ -227,7 +246,7 @@ Founder-Copilot/
 {
   "feature": "startup_plan",
   "content": "# 💡 Startup Plan: ...",
-  "model_used": "premier",
+  "model_used": "nova2lite",
   "tokens_used": 1847,
   "generation_time": 8.42,
   "demo_mode": false
@@ -301,10 +320,10 @@ learning style and pace"
 
 ## 👨‍💻 Built For
 
-**Amazon Nova AI Hackathon** — Demonstrating the power of Amazon Nova Premier, Pro, Lite, and Micro models for real-world startup tooling.
+**Amazon Nova AI Hackathon** — Demonstrating the power of Amazon Nova 2 Lite and Nova 2 Pro (Gen 2) alongside Nova Premier and Nova Micro for real-world startup tooling.
 
 ### What Makes This Special
-- 🧠 **Multi-model orchestration** — Uses Nova Micro for fast intent detection, then routes to Premier/Pro/Lite for generation
+- 🧠 **Nova 2 Gen 2 models** — Uses Nova 2 Lite (default) and Nova 2 Pro for all generation; Nova Micro for fast intent detection
 - ⚡ **Production-ready** — Rate limiting, async safety, input validation, error handling
 - 🎨 **Beautiful UI** — Dark theme with feature-colored accents, Framer Motion animations, responsive design
 - 🧪 **Instantly demoable** — Works out of the box with demo mode (no AWS needed)
