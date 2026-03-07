@@ -1,6 +1,13 @@
 # 🚀 Founder Copilot
 
-**AI-Powered Startup Helper Agent — Built for the Amazon Nova AI Hackathon**
+**AI-Powered Startup Helper ### 🤖 Amazon Nova Models Used
+
+| Model | Bedrock Inference Profile ID | Generation | Role | Speed |
+|-------|------------------------------|-----------|------|-------|
+| **Nova 2 Lite** | `us.amazon.nova-2-lite-v1:0` | **Gen 2** | ⚡ Default — all 5 features | ~4-8s |
+| **Nova Pro** | `us.amazon.nova-pro-v1:0` | Gen 1 | ✨ High-quality generation option | ~6-10s |
+| **Nova Premier** | `us.amazon.nova-premier-v1:0` | Gen 1 | 🏆 Most powerful (selectable) | ~8-12s |
+| **Nova Micro** | `us.amazon.nova-micro-v1:0` | Gen 1 | 🚀 Intent classification in Auto-Detect agent | ~2-4s |Built for the Amazon Nova AI Hackathon**
 
 Turn your startup idea into a comprehensive plan, technical architecture, development backlog, investor-ready pitch deck, and go-to-market strategy — all powered by **Amazon Nova AI** through Amazon Bedrock.
 
@@ -365,12 +372,12 @@ learning style and pace"
 
 ### How It Uses Amazon Nova
 
-| Nova Model | Bedrock Inference Profile ID | Role in App |
-|-----------|------------------------------|-------------|
-| **Nova 2 Lite** | `us.amazon.nova-2-lite-v1:0` | Default generation model — all 5 features |
-| **Nova 2 Pro** | `us.amazon.nova-pro-v1:0` | High-quality generation option |
-| **Nova Premier** | `us.amazon.nova-premier-v1:0` | Most powerful (selectable) |
-| **Nova Micro** | `us.amazon.nova-micro-v1:0` | Intent classification in Auto-Detect agent |
+| Nova Model | Bedrock Inference Profile ID | Generation | Role in App |
+|-----------|------------------------------|-----------|-------------|
+| **Nova 2 Lite** | `us.amazon.nova-2-lite-v1:0` | **Gen 2** | Default generation model — all 5 features |
+| **Nova Pro** | `us.amazon.nova-pro-v1:0` | Gen 1 | High-quality generation option |
+| **Nova Premier** | `us.amazon.nova-premier-v1:0` | Gen 1 | Most powerful (selectable) |
+| **Nova Micro** | `us.amazon.nova-micro-v1:0` | Gen 1 | Intent classification in Auto-Detect agent |
 
 ### Testing Instructions for Judges
 

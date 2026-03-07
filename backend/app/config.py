@@ -20,10 +20,10 @@ class Settings:
     # ── Amazon Nova 2 Lite (cross-region inference profile required) ────────
     NOVA_2_LITE_MODEL_ID: str = os.getenv("NOVA_2_LITE_MODEL_ID", "us.amazon.nova-2-lite-v1:0")
 
-    # ── Amazon Nova Pro (cross-region inference profile) ─────────────────────
-    NOVA_2_PRO_MODEL_ID: str  = os.getenv("NOVA_2_PRO_MODEL_ID",  "us.amazon.nova-pro-v1:0")
+    # ── Amazon Nova Pro Gen 1 (cross-region inference profile) ───────────────
+    NOVA_PRO_MODEL_ID: str = os.getenv("NOVA_PRO_MODEL_ID", "us.amazon.nova-pro-v1:0")
 
-    # ── Amazon Nova Premier + Micro (cross-region inference profiles) ────────
+    # ── Amazon Nova Premier + Micro Gen 1 (cross-region inference profiles) ──
     NOVA_PREMIER_MODEL_ID: str = os.getenv("NOVA_PREMIER_MODEL_ID", "us.amazon.nova-premier-v1:0")
     NOVA_MICRO_MODEL_ID: str   = os.getenv("NOVA_MICRO_MODEL_ID",   "us.amazon.nova-micro-v1:0")
 
@@ -44,11 +44,11 @@ class Settings:
         self.MODEL_MAP = {
             # ── Nova 2 Lite (newest, default) ──
             "nova2lite":  self.NOVA_2_LITE_MODEL_ID,   # us.amazon.nova-2-lite-v1:0
-            # ── Nova Pro (full-size, high quality) ──
-            "nova2pro":   self.NOVA_2_PRO_MODEL_ID,    # us.amazon.nova-pro-v1:0
-            # ── Nova Premier (most powerful) ──
+            # ── Nova Pro Gen 1 (high quality) ──
+            "nova_pro":   self.NOVA_PRO_MODEL_ID,      # us.amazon.nova-pro-v1:0
+            # ── Nova Premier Gen 1 (most powerful) ──
             "premier":    self.NOVA_PREMIER_MODEL_ID,  # us.amazon.nova-premier-v1:0
-            # ── Nova Micro (intent detection, fastest) ──
+            # ── Nova Micro Gen 1 (intent detection, fastest) ──
             "micro":      self.NOVA_MICRO_MODEL_ID,    # us.amazon.nova-micro-v1:0
         }
 
