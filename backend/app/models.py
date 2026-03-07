@@ -9,13 +9,13 @@ from enum import Enum
 
 
 class NovaModel(str, Enum):
-    """Available Amazon Nova models (Nova 2 default)."""
-    # ── Nova 2 (Gen 2) ──
-    NOVA2LITE = "nova2lite"   # default — fast reasoning
-    NOVA2PRO  = "nova2pro"    # high quality
-    # ── Nova 1 (Gen 1) ──
-    PREMIER = "premier"       # most powerful
-    MICRO   = "micro"         # fastest / intent detection
+    """Available Amazon Nova models."""
+    # ── Nova 2 ──
+    NOVA2LITE = "nova2lite"   # default — Nova 2 Lite (Gen 2, newest)
+    # ── Nova 1 ──
+    NOVA_PRO  = "nova_pro"    # Nova Pro (Gen 1, high quality)
+    PREMIER   = "premier"     # Nova Premier (most powerful)
+    MICRO     = "micro"       # Nova Micro (fastest / intent detection)
 
 
 class FeatureType(str, Enum):
