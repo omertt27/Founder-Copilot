@@ -1005,7 +1005,31 @@ def detect_demo_intent(message: str) -> str:
     return best if scores[best] > 0 else "startup_plan"
 
 
-async def get_demo_response(feature: str) -> tuple[str, int]:
+async def get_demo_founder_package(idea: str) -> list[dict]:
+    """Return a full demo founder package (all 5 agents) with realistic delays."""
+    import time
+    steps = []
+    agent_order = [
+        ("startup_plan",       "💡 CEO Agent",              "startup_plan"),
+        ("tech_architecture",  "🏗️ CTO Agent",              "tech_architecture"),
+        ("github_issues",      "👩‍💻 Engineering Lead Agent", "github_issues"),
+        ("pitch_deck",         "🎤 Investor Relations Agent","pitch_deck"),
+        ("marketing_strategy", "📣 CMO Agent",              "marketing_strategy"),
+    ]
+    for feature_key, agent_name, feature_type in agent_order:
+        await asyncio.sleep(random.uniform(0.8, 1.5))
+        t0 = time.time()
+        content = DEMO_RESPONSES.get(feature_key, "")
+        tokens  = DEMO_TOKEN_COUNTS.get(feature_key, 1500)
+        steps.append({
+            "agent":           agent_name,
+            "feature":         feature_type,
+            "content":         content,
+            "tokens_used":     tokens,
+            "generation_time": round(time.time() - t0 + random.uniform(1, 3), 2),
+            "status":          "success",
+        })
+    return steps
     """Return a demo response with a realistic delay."""
     # Simulate 1-3 seconds of "thinking" to feel realistic
     await asyncio.sleep(random.uniform(1.0, 3.0))

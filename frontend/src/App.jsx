@@ -9,12 +9,14 @@ import InputPanel from './components/InputPanel.jsx';
 import OutputPanel from './components/OutputPanel.jsx';
 import LoadingSkeleton from './components/LoadingSkeleton.jsx';
 import History from './components/History.jsx';
+import FounderPackagePanel from './components/FounderPackagePanel.jsx';
 import {
   generateStartupPlan,
   generateTechArchitecture,
   generateGitHubIssues,
   generatePitchDeck,
   generateMarketingStrategy,
+  generateFounderPackage,
 } from './services/api.js';
 import './App.css';
 
@@ -85,6 +87,14 @@ export default function App() {
               model
             );
             break;
+          case 'founder_package':
+            response = await generateFounderPackage(
+              input,
+              targetAudience,
+              budget,
+              model
+            );
+            break;
           default:
             throw new Error('Please select a feature first');
         }
@@ -130,8 +140,9 @@ export default function App() {
           </h2>
           <p className="hero-desc">
             Powered by <strong>Amazon Nova AI</strong> — generate startup plans,
-            technical architecture, development backlogs, pitch decks, and
-            marketing strategies in seconds.
+            technical architecture, development backlogs, pitch decks, marketing
+            strategies, or run the <strong>Full Founder Package</strong> to fire
+            all 5 specialist agents in one go.
           </p>
         </section>
 
@@ -166,8 +177,12 @@ export default function App() {
         {loading && <LoadingSkeleton feature={selectedFeature} />}
 
         {/* Output */}
-        {result && !loading && (
-          <OutputPanel result={result} feature={resultFeature} />
+        {result && !loading && resultFeature === 'founder_package' ? (
+          <FounderPackagePanel result={result} />
+        ) : (
+          result && !loading && (
+            <OutputPanel result={result} feature={resultFeature} />
+          )
         )}
 
         {/* History */}

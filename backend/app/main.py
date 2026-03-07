@@ -25,8 +25,10 @@ app = FastAPI(
     title="Founder Copilot",
     description=(
         "🚀 AI-Powered Startup Helper Agent built with Amazon Nova AI. "
-        "Generates startup plans, technical architecture, GitHub issues, "
-        "and pitch decks for founders."
+        "Simulates a full founding team: generates startup plans (CEO), "
+        "technical architecture (CTO), GitHub issues (Engineering Lead), "
+        "pitch decks (Investor Relations), and marketing strategies (CMO). "
+        "#AmazonNova"
     ),
     version="1.0.0",
     docs_url="/docs",

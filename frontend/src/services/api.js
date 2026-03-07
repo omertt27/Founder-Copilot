@@ -101,6 +101,18 @@ export async function generateMarketingStrategy(
 }
 
 /**
+ * Generate full Founder Package (multi-agent pipeline — all 5 specialists)
+ */
+export async function generateFounderPackage(idea, targetAudience = '', budget = '', model = 'nova2lite') {
+  return apiCall('/generate/founder-package', {
+    idea,
+    target_audience: targetAudience || undefined,
+    budget: budget || undefined,
+    model,
+  });
+}
+
+/**
  * Auto-detect feature and generate
  */
 export async function autoGenerate(message, model = 'nova2lite', context = null) {

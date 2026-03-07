@@ -19,8 +19,11 @@ from app.models import (
     PitchDeckRequest,
     MarketingStrategyRequest,
     AutoDetectRequest,
+    FounderPackageRequest,
     GenerationResponse,
     AutoDetectResponse,
+    FounderPackageResponse,
+    AgentStep,
     FeatureType,
 )
 from app.prompts import (
@@ -34,7 +37,7 @@ from app.prompts import (
 )
 from app.nova_client import nova_client
 from app.config import settings
-from app.demo_responses import get_demo_response, detect_demo_intent, stream_demo_response
+from app.demo_responses import get_demo_response, get_demo_founder_package, detect_demo_intent, stream_demo_response
 
 router = APIRouter(prefix="/api", tags=["Founder Copilot"])
 limiter = Limiter(key_func=get_remote_address)
@@ -361,6 +364,167 @@ async def auto_generate(request: Request, body: AutoDetectRequest):
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Generation failed: {str(e)}")
+
+
+# ============================================
+# FOUNDER PACKAGE: Full Multi-Agent Pipeline
+# ============================================
+@router.post("/generate/founder-package", response_model=FounderPackageResponse)
+@limiter.limit("5/minute")
+async def generate_founder_package(request: Request, body: FounderPackageRequest):
+    """
+    🤖 Full Multi-Agent Founder Package Pipeline
+
+    Orchestrates 5 specialized Nova AI agents in sequence:
+    1. 💡 CEO Agent        → Startup Plan
+    2. 🏗️  CTO Agent        → Technical Architecture
+    3. 👩‍💻 Engineering Lead  → GitHub Issues (uses output from steps 1+2)
+    4. 🎤 IR Agent         → Pitch Deck
+    5. 📣 CMO Agent        → Marketing Strategy
+
+    Each agent builds on context from the previous ones.
+    Returns the complete founder package in a single call.
+    """
+    import time
+    total_start = time.time()
+
+    try:
+        if settings.DEMO_MODE:
+            raw_steps = await get_demo_founder_package(body.idea)
+            steps = [AgentStep(**s) for s in raw_steps]
+            return FounderPackageResponse(
+                idea=body.idea,
+                steps=steps,
+                total_tokens=sum(s.tokens_used or 0 for s in steps),
+                total_time=round(time.time() - total_start, 2),
+                model_used="demo",
+                demo_mode=True,
+            )
+
+        steps: list[AgentStep] = []
+        total_tokens = 0
+
+        # ── Agent 1: CEO — Startup Plan ──────────────────────────────────────
+        t0 = time.time()
+        plan_prompt = STARTUP_PLAN_PROMPT.format(user_input=body.idea)
+        plan_content, plan_tokens = await _invoke_async(
+            system_prompt=SYSTEM_PROMPT,
+            user_prompt=plan_prompt,
+            model=body.model.value,
+            temperature=0.3,
+            max_tokens=4096,
+        )
+        steps.append(AgentStep(
+            agent="💡 CEO Agent",
+            feature=FeatureType.STARTUP_PLAN,
+            content=plan_content,
+            tokens_used=plan_tokens,
+            generation_time=round(time.time() - t0, 2),
+        ))
+        total_tokens += plan_tokens or 0
+
+        # ── Agent 2: CTO — Tech Architecture ────────────────────────────────
+        t0 = time.time()
+        # Use startup plan output as richer context
+        arch_prompt = TECH_ARCHITECTURE_PROMPT.format(
+            product_description=f"{body.idea}\n\nContext from CEO Agent:\n{plan_content[:800]}"
+        )
+        arch_content, arch_tokens = await _invoke_async(
+            system_prompt=SYSTEM_PROMPT,
+            user_prompt=arch_prompt,
+            model=body.model.value,
+            temperature=0.3,
+            max_tokens=4096,
+        )
+        steps.append(AgentStep(
+            agent="🏗️ CTO Agent",
+            feature=FeatureType.TECH_ARCHITECTURE,
+            content=arch_content,
+            tokens_used=arch_tokens,
+            generation_time=round(time.time() - t0, 2),
+        ))
+        total_tokens += arch_tokens or 0
+
+        # ── Agent 3: Engineering Lead — GitHub Issues ────────────────────────
+        # Extract tech stack from architecture output for richer issues
+        t0 = time.time()
+        issues_prompt = GITHUB_ISSUES_PROMPT.format(
+            product_name=body.idea[:60],
+            product_description=f"{body.idea}\n\nContext from CTO Agent:\n{arch_content[:600]}",
+            tech_stack=f"See CTO architecture above",
+        )
+        issues_content, issues_tokens = await _invoke_async(
+            system_prompt=SYSTEM_PROMPT,
+            user_prompt=issues_prompt,
+            model=body.model.value,
+            temperature=0.3,
+            max_tokens=4096,
+        )
+        steps.append(AgentStep(
+            agent="👩‍💻 Engineering Lead Agent",
+            feature=FeatureType.GITHUB_ISSUES,
+            content=issues_content,
+            tokens_used=issues_tokens,
+            generation_time=round(time.time() - t0, 2),
+        ))
+        total_tokens += issues_tokens or 0
+
+        # ── Agent 4: IR — Pitch Deck ─────────────────────────────────────────
+        t0 = time.time()
+        pitch_prompt = PITCH_DECK_PROMPT.format(
+            user_input=body.idea,
+            product_description=f"{body.idea}\n\nContext from CEO Agent:\n{plan_content[:600]}",
+        )
+        pitch_content, pitch_tokens = await _invoke_async(
+            system_prompt=SYSTEM_PROMPT,
+            user_prompt=pitch_prompt,
+            model=body.model.value,
+            temperature=0.7,
+            max_tokens=4096,
+        )
+        steps.append(AgentStep(
+            agent="🎤 Investor Relations Agent",
+            feature=FeatureType.PITCH_DECK,
+            content=pitch_content,
+            tokens_used=pitch_tokens,
+            generation_time=round(time.time() - t0, 2),
+        ))
+        total_tokens += pitch_tokens or 0
+
+        # ── Agent 5: CMO — Marketing Strategy ───────────────────────────────
+        t0 = time.time()
+        mkt_prompt = MARKETING_STRATEGY_PROMPT.format(
+            startup_idea=body.idea,
+            target_audience=body.target_audience or "Not specified — infer from startup plan above",
+            budget=body.budget or "Bootstrap / minimal budget (under $2K/month)",
+        )
+        mkt_content, mkt_tokens = await _invoke_async(
+            system_prompt=SYSTEM_PROMPT,
+            user_prompt=mkt_prompt,
+            model=body.model.value,
+            temperature=0.5,
+            max_tokens=4096,
+        )
+        steps.append(AgentStep(
+            agent="📣 CMO Agent",
+            feature=FeatureType.MARKETING_STRATEGY,
+            content=mkt_content,
+            tokens_used=mkt_tokens,
+            generation_time=round(time.time() - t0, 2),
+        ))
+        total_tokens += mkt_tokens or 0
+
+        return FounderPackageResponse(
+            idea=body.idea,
+            steps=steps,
+            total_tokens=total_tokens,
+            total_time=round(time.time() - total_start, 2),
+            model_used=body.model.value,
+            demo_mode=False,
+        )
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Founder Package generation failed: {str(e)}")
 
 
 # ============================================

@@ -81,6 +81,34 @@ class AutoDetectRequest(BaseModel):
     )
 
 
+class FounderPackageRequest(BaseModel):
+    """Request to run the full multi-agent Founder Package pipeline."""
+    idea: str = Field(..., description="The startup idea description", min_length=10)
+    target_audience: Optional[str] = Field(default=None, description="Target audience (optional)")
+    budget: Optional[str] = Field(default=None, description="Marketing budget (optional)")
+    model: NovaModel = Field(default=NovaModel.NOVA2LITE, description="Nova model to use")
+
+
+class AgentStep(BaseModel):
+    """A single step in the multi-agent pipeline."""
+    agent: str
+    feature: FeatureType
+    content: str
+    tokens_used: Optional[int] = None
+    generation_time: Optional[float] = None
+    status: str = "success"
+
+
+class FounderPackageResponse(BaseModel):
+    """Response from the full multi-agent Founder Package pipeline."""
+    idea: str
+    steps: list[AgentStep]
+    total_tokens: Optional[int] = None
+    total_time: Optional[float] = None
+    model_used: str
+    demo_mode: bool = False
+
+
 # ---- Response Models ----
 
 class GenerationResponse(BaseModel):

@@ -1,24 +1,24 @@
 # 🚀 Founder Copilot
 
-**AI-Powered Startup Helper Agent — Built for> 📷 **To add screenshots:** Run the app locally (`npm run dev`) and take screenshots at 1280×800 or wider. Save them to `docs/screenshots/` using the filenames above. See [`docs/SCREENSHOTS.md`](docs/SCREENSHOTS.md) for the full guide.
+**AI-Powered Startup Helper Agent — Built for the Amazon Nova AI Hackathon**
 
----
+Turn your startup idea into a comprehensive plan, technical architecture, development backlog, investor-ready pitch deck, and go-to-market strategy — all powered by **Amazon Nova AI** through Amazon Bedrock.
 
-## 🎬 Demo Video
-
-<!-- Add your demo video link here once recorded -->
-> 🎥 **Demo video coming soon** — See [`docs/SCREENSHOTS.md`](docs/SCREENSHOTS.md) for recording instructions.
->
-> Planned flow: Show the UI → generate a Startup Plan → show GitHub Issues output → demonstrate Demo Mode (no AWS) → show streaming SSE in action.
-
----e Amazon Nova AI Hackathon**
-
-Turn your startup idea into a comprehensive plan, technical architecture, development backlog, and investor-ready pitch deck — all powered by **Amazon Nova AI** through Amazon Bedrock.
+> **#AmazonNova** | Category: **Agentic AI** | Hackathon: [Amazon Nova AI Hackathon on Devpost](https://amazonnovaai.devpost.com/)
 
 ![Amazon Nova AI](https://img.shields.io/badge/Amazon_Nova_AI-Powered-FF9900?style=for-the-badge&logo=amazon-aws)
 ![Nova 2](https://img.shields.io/badge/Nova_2-Lite_%26_Pro-FF9900?style=for-the-badge&logo=amazon-aws)
 ![Python](https://img.shields.io/badge/Python-FastAPI-3776AB?style=for-the-badge&logo=python)
 ![React](https://img.shields.io/badge/React-Vite-61DAFB?style=for-the-badge&logo=react)
+
+---
+
+## 🎬 Demo Video
+
+<!-- Replace this URL once your video is uploaded -->
+> 🎥 **[Watch the Demo on YouTube](https://youtube.com/YOUR_VIDEO_LINK)** — ~3 minutes | `#AmazonNova`
+>
+> **Demo flow:** Launch app → Startup Plan generation → Tech Architecture → GitHub Issues → Pitch Deck → Marketing Strategy → Demo Mode (no AWS) → Streaming SSE in real time
 
 ---
 
@@ -48,14 +48,14 @@ cd ../frontend && npm install && npm run dev
 | 🤖 **Auto-Detect** | Smart agent that detects your intent and routes to the right feature (uses Nova Micro for fast classification) | ~10-15s |
 | 📡 **Streaming** | Real-time Server-Sent Events for progressive output rendering | Instant chunks |
 
-### 🤖 Amazon Nova Models Used
+### �� Amazon Nova Models Used
 
-| Model | Role | Speed |
-|-------|------|-------|
-| **Nova 2 Lite** | ⚡ Default — Gen 2 fast reasoning, great quality | ~4-8s |
-| **Nova 2 Pro** | ✨ Gen 2 high quality, comprehensive outputs | ~6-10s |
-| **Nova Premier** | 🏆 Gen 1 most powerful (legacy/fallback) | ~8-12s |
-| **Nova Micro** | 🚀 Intent detection + fastest outputs | ~2-4s |
+| Model | Bedrock Inference Profile ID | Role | Speed |
+|-------|------------------------------|------|-------|
+| **Nova 2 Lite** | `us.amazon.nova-2-lite-v1:0` | ⚡ Default — Gen 2 fast reasoning, great quality | ~4-8s |
+| **Nova 2 Pro** | `us.amazon.nova-pro-v1:0` | ✨ Gen 2 high quality, comprehensive outputs | ~6-10s |
+| **Nova Premier** | `us.amazon.nova-premier-v1:0` | 🏆 Most powerful (selectable) | ~8-12s |
+| **Nova Micro** | `us.amazon.nova-micro-v1:0` | 🚀 Intent detection in Auto-Detect agent | ~2-4s |
 
 ---
 
@@ -74,7 +74,7 @@ cd ../frontend && npm install && npm run dev
 ![GitHub Issues continued](docs/screenshots/06-github-issues-2.png)
 ![GitHub Issues continued](docs/screenshots/07-github-issues-3.png)
 
-> � **To add screenshots:** Run the app locally (`npm run dev`) and take screenshots at 1280×800 or wider. Save them to `docs/screenshots/` using the filenames above.
+> 📷 **To add screenshots:** Run the app locally (`npm run dev`) and take screenshots at 1280×800 or wider. Save them to `docs/screenshots/` using the filenames above. See [`docs/SCREENSHOTS.md`](docs/SCREENSHOTS.md) for the full guide.
 
 ---
 
@@ -126,7 +126,7 @@ Here's what each feature generates from a simple prompt like *"AI meeting assist
 
 ---
 
-## 🚀 Quick Start
+## �� Quick Start
 
 ### Prerequisites
 - Python 3.11+
@@ -198,31 +198,34 @@ Founder-Copilot/
 │   ├── app/
 │   │   ├── __init__.py
 │   │   ├── main.py              # FastAPI app entry point
-│   │   ├── config.py             # Environment & settings (+ demo mode)
-│   │   ├── nova_client.py        # Amazon Nova/Bedrock client
-│   │   ├── prompts.py            # All prompt templates (317 lines)
-│   │   ├── models.py             # Pydantic schemas
-│   │   ├── routes.py             # API endpoints (7 routes)
-│   │   └── demo_responses.py     # Mock data for demo mode
-│   ├── run.py                    # Server runner
+│   │   ├── config.py            # Environment & settings (+ demo mode)
+│   │   ├── nova_client.py       # Amazon Nova/Bedrock client
+│   │   ├── prompts.py           # All prompt templates
+│   │   ├── models.py            # Pydantic schemas
+│   │   ├── routes.py            # API endpoints (7 routes)
+│   │   └── demo_responses.py    # Mock data for demo mode
+│   ├── run.py                   # Server runner
 │   ├── requirements.txt
-│   ├── .env                      # Your credentials (gitignored)
-│   └── .env.example              # Template
+│   ├── .env                     # Your credentials (gitignored)
+│   └── .env.example             # Template
 │
 ├── frontend/
 │   ├── src/
-│   │   ├── components/           # React components (7 files)
-│   │   ├── services/api.js       # API client with SSE streaming
-│   │   ├── App.jsx               # Main app (state, routing, history)
+│   │   ├── components/          # React components (7 files)
+│   │   ├── services/api.js      # API client with SSE streaming
+│   │   ├── App.jsx              # Main app (state, routing, history)
 │   │   ├── App.css
-│   │   ├── index.css             # Global design system (330 lines)
-│   │   └── main.jsx              # Entry point
+│   │   ├── index.css            # Global design system
+│   │   └── main.jsx             # Entry point
 │   ├── index.html
 │   ├── package.json
 │   └── vite.config.js
 │
+├── docs/
+│   ├── screenshots/             # Demo screenshots
+│   └── SCREENSHOTS.md           # Screenshot recording guide
 ├── README.md
-├── PROJECT_REPORT.md             # Full system architecture report
+├── PROJECT_REPORT.md            # Full system architecture report
 └── .gitignore
 ```
 
@@ -338,6 +341,57 @@ learning style and pace"
 - 🧪 **Instantly demoable** — Works out of the box with demo mode (no AWS needed)
 - 📊 **Metrics built-in** — Generation time, token count, and model info displayed on every output
 - 📣 **Full founding team simulation** — Startup Plan (CEO), Tech Architecture (CTO), GitHub Issues (Engineering Lead), Pitch Deck (Investor Relations), Marketing Strategy (CMO)
+
+---
+
+## 🏆 Hackathon Submission
+
+### Category
+**Agentic AI** — Founder Copilot uses Amazon Nova's reasoning capabilities to simulate a full AI founding team. The Auto-Detect agent classifies user intent (via Nova Micro) and routes to the correct specialized Nova 2 generation agent, each with a distinct expert persona and structured multi-section output.
+
+### Project Description *(copy-paste this into the Devpost submission form)*
+
+> Founder Copilot is an AI-powered startup helper agent that turns any startup idea into a complete founder package in seconds. Powered entirely by **Amazon Nova 2 Lite** and **Nova 2 Pro** (Gen 2) via Amazon Bedrock, it simulates a full founding team:
+>
+> - 💡 **CEO** → Startup Plan (strategy, roadmap, KPIs)
+> - 🏗️ **CTO** → Technical Architecture (stack, schema, API design)
+> - 👩‍💻 **Engineering Lead** → GitHub Issues (prioritized dev backlog)
+> - 🎤 **Investor Relations** → Pitch Deck (12-slide investor outline)
+> - 📣 **CMO** → Marketing Strategy (GTM plan, channels, 90-day roadmap)
+>
+> An **Auto-Detect agent** (Nova Micro) classifies the user's natural language input and routes it to the right specialist automatically. All generation uses real-time **Server-Sent Events (SSE) streaming** for a live typewriter experience. Includes **instant Demo Mode** (no AWS required) so judges can test every feature without credentials.
+>
+> Built with FastAPI + React + Amazon Bedrock. #AmazonNova
+
+### How It Uses Amazon Nova
+
+| Nova Model | Bedrock Inference Profile ID | Role in App |
+|-----------|------------------------------|-------------|
+| **Nova 2 Lite** | `us.amazon.nova-2-lite-v1:0` | Default generation model — all 5 features |
+| **Nova 2 Pro** | `us.amazon.nova-pro-v1:0` | High-quality generation option |
+| **Nova Premier** | `us.amazon.nova-premier-v1:0` | Most powerful (selectable) |
+| **Nova Micro** | `us.amazon.nova-micro-v1:0` | Intent classification in Auto-Detect agent |
+
+### Testing Instructions for Judges
+
+```bash
+# Clone the repo
+git clone https://github.com/YOUR_USERNAME/Founder-Copilot.git
+cd Founder-Copilot
+
+# Start backend (Demo Mode works without AWS credentials)
+cd backend && pip install -r requirements.txt && python run.py &
+
+# Start frontend
+cd ../frontend && npm install && npm run dev
+# → Open http://localhost:5173
+```
+
+> 🧪 **No AWS account needed** — Demo Mode activates automatically if no credentials are set.
+> For real Nova AI responses, add your AWS credentials to `backend/.env`.
+
+**Grant repo access for judging (if repo is private):**
+Share with `testing@devpost.com` and `Amazon-Nova-hackathon@amazon.com`
 
 ---
 

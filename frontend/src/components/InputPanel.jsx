@@ -13,6 +13,8 @@ const PLACEHOLDERS = {
     'Describe your startup for the pitch deck... e.g. "AI-powered meeting assistant that records, summarizes, and creates action items"',
   marketing_strategy:
     'Describe your startup idea... e.g. "AI-powered meeting assistant that records meetings and automatically creates action items with assignees"',
+  founder_package:
+    'Describe your startup idea... e.g. "AI-powered meeting assistant that records meetings, summarizes them, and creates action items automatically"',
 };
 
 const TITLES = {
@@ -21,6 +23,7 @@ const TITLES = {
   github_issues: '📋 Describe Your Project',
   pitch_deck: '🎤 Describe Your Startup',
   marketing_strategy: '📣 Describe Your Startup',
+  founder_package: '🚀 Describe Your Startup Idea — All 5 Agents Will Run',
 };
 
 const MODEL_OPTIONS = [
@@ -92,7 +95,7 @@ export default function InputPanel({ feature, onGenerate, loading }) {
       )}
 
       {/* Extra fields for Marketing Strategy */}
-      {feature === 'marketing_strategy' && (
+      {(feature === 'marketing_strategy' || feature === 'founder_package') && (
         <div className="input-extras">
           <div className="input-field">
             <label>Target Audience (optional)</label>
@@ -137,18 +140,18 @@ export default function InputPanel({ feature, onGenerate, loading }) {
         {/* Generate Button */}
         <button
           type="submit"
-          className="generate-btn"
+          className={`generate-btn ${feature === 'founder_package' ? 'founder-package-btn' : ''}`}
           disabled={!input.trim() || loading}
         >
           {loading ? (
             <>
               <HiArrowPath className="spin" />
-              Generating...
+              {feature === 'founder_package' ? 'Running All Agents...' : 'Generating...'}
             </>
           ) : (
             <>
               <HiPaperAirplane />
-              Generate
+              {feature === 'founder_package' ? '🚀 Run All 5 Agents' : 'Generate'}
             </>
           )}
         </button>
