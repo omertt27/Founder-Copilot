@@ -41,14 +41,14 @@ async function apiCall(endpoint, body) {
 /**
  * Generate a Startup Plan
  */
-export async function generateStartupPlan(idea, model = 'premier') {
+export async function generateStartupPlan(idea, model = 'nova2lite') {
   return apiCall('/generate/startup-plan', { idea, model });
 }
 
 /**
  * Generate Technical Architecture
  */
-export async function generateTechArchitecture(productDescription, model = 'premier') {
+export async function generateTechArchitecture(productDescription, model = 'nova2lite') {
   return apiCall('/generate/tech-architecture', {
     product_description: productDescription,
     model,
@@ -62,7 +62,7 @@ export async function generateGitHubIssues(
   productName,
   productDescription,
   techStack = 'To be determined',
-  model = 'premier'
+  model = 'nova2lite'
 ) {
   return apiCall('/generate/github-issues', {
     product_name: productName,
@@ -75,7 +75,7 @@ export async function generateGitHubIssues(
 /**
  * Generate Pitch Deck
  */
-export async function generatePitchDeck(idea, productDescription = '', model = 'premier') {
+export async function generatePitchDeck(idea, productDescription = '', model = 'nova2lite') {
   return apiCall('/generate/pitch-deck', {
     idea,
     product_description: productDescription,
@@ -86,14 +86,14 @@ export async function generatePitchDeck(idea, productDescription = '', model = '
 /**
  * Auto-detect feature and generate
  */
-export async function autoGenerate(message, model = 'premier', context = null) {
+export async function autoGenerate(message, model = 'nova2lite', context = null) {
   return apiCall('/generate/auto', { message, model, context });
 }
 
 /**
  * Stream generation (SSE)
  */
-export async function streamGenerate(feature, message, model = 'premier', onChunk) {
+export async function streamGenerate(feature, message, model = 'nova2lite', onChunk) {
   const response = await fetch(`${API_BASE}/generate/stream/${feature}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

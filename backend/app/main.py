@@ -64,11 +64,12 @@ async def health_check():
         service="Founder Copilot",
         version="1.0.0",
         nova_models={
-            "premier": settings.NOVA_PREMIER_MODEL_ID,
-            "pro": settings.NOVA_PRO_MODEL_ID,
-            "lite": settings.NOVA_LITE_MODEL_ID,
-            "micro": settings.NOVA_MICRO_MODEL_ID,
+            "nova2lite":  settings.NOVA_2_LITE_MODEL_ID,
+            "nova2pro":   settings.NOVA_2_PRO_MODEL_ID,
+            "premier":    settings.NOVA_PREMIER_MODEL_ID,
+            "micro":      settings.NOVA_MICRO_MODEL_ID,
         },
+        demo_mode=settings.DEMO_MODE,
     )
 
 

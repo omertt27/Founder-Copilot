@@ -65,6 +65,30 @@
   font-weight: 500;
 }
 
+.header-badges {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-demo-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  color: var(--warning);
+  font-weight: 600;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.header-demo-badge svg {
+  font-size: 14px;
+}
+
 .badge-dot {
   width: 8px;
   height: 8px;
@@ -76,5 +100,9 @@
 @media (max-width: 600px) {
   .header-badge {
     display: none;
+  }
+  .header-demo-badge {
+    padding: 4px 10px;
+    font-size: 0.7rem;
   }
 }

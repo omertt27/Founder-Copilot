@@ -14,6 +14,11 @@ class NovaClient:
     """Client for interacting with Amazon Nova AI through Bedrock."""
 
     def __init__(self):
+        # Skip AWS client initialization in demo mode
+        if settings.DEMO_MODE:
+            self.client = None
+            return
+
         boto_config = BotoConfig(
             region_name=settings.AWS_REGION,
             retries={"max_attempts": 3, "mode": "adaptive"},
@@ -51,7 +56,7 @@ class NovaClient:
         self,
         system_prompt: str,
         user_prompt: str,
-        model: str = "premier",
+        model: str = "nova2lite",
         temperature: float = 0.3,
         max_tokens: int = 4096,
     ) -> tuple[str, int | None]:
@@ -61,14 +66,14 @@ class NovaClient:
         Args:
             system_prompt: System-level instruction for the model.
             user_prompt: The user's message/query.
-            model: Which Nova model to use ('premier', 'pro', 'lite', 'micro').
+            model: Nova model key ('nova2lite', 'nova2pro', 'premier', 'micro').
             temperature: Creativity parameter (0.0-1.0).
             max_tokens: Maximum tokens in the response.
 
         Returns:
             Tuple of (text response, tokens used or None).
         """
-        model_id = settings.MODEL_MAP.get(model, settings.NOVA_PREMIER_MODEL_ID)
+        model_id = settings.MODEL_MAP.get(model, settings.NOVA_2_LITE_MODEL_ID)
 
         body = self._build_body(system_prompt, user_prompt, temperature, max_tokens)
 
@@ -96,7 +101,7 @@ class NovaClient:
         self,
         system_prompt: str,
         user_prompt: str,
-        model: str = "premier",
+        model: str = "nova2lite",
         temperature: float = 0.3,
         max_tokens: int = 4096,
     ):
@@ -105,7 +110,7 @@ class NovaClient:
 
         Yields text chunks as they arrive.
         """
-        model_id = settings.MODEL_MAP.get(model, settings.NOVA_PREMIER_MODEL_ID)
+        model_id = settings.MODEL_MAP.get(model, settings.NOVA_2_LITE_MODEL_ID)
 
         body = self._build_body(system_prompt, user_prompt, temperature, max_tokens)
 

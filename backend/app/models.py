@@ -9,11 +9,13 @@ from enum import Enum
 
 
 class NovaModel(str, Enum):
-    """Available Amazon Nova models."""
-    PREMIER = "premier"
-    PRO = "pro"
-    LITE = "lite"
-    MICRO = "micro"
+    """Available Amazon Nova models (Nova 2 default)."""
+    # ── Nova 2 (Gen 2) ──
+    NOVA2LITE = "nova2lite"   # default — fast reasoning
+    NOVA2PRO  = "nova2pro"    # high quality
+    # ── Nova 1 (Gen 1) ──
+    PREMIER = "premier"       # most powerful
+    MICRO   = "micro"         # fastest / intent detection
 
 
 class FeatureType(str, Enum):
@@ -30,13 +32,13 @@ class FeatureType(str, Enum):
 class StartupPlanRequest(BaseModel):
     """Request for generating a startup plan."""
     idea: str = Field(..., description="The startup idea description", min_length=10)
-    model: NovaModel = Field(default=NovaModel.PREMIER, description="Nova model to use")
+    model: NovaModel = Field(default=NovaModel.NOVA2LITE, description="Nova model to use")
 
 
 class TechArchitectureRequest(BaseModel):
     """Request for generating technical architecture."""
     product_description: str = Field(..., description="Product description", min_length=10)
-    model: NovaModel = Field(default=NovaModel.PREMIER, description="Nova model to use")
+    model: NovaModel = Field(default=NovaModel.NOVA2LITE, description="Nova model to use")
 
 
 class GitHubIssuesRequest(BaseModel):
@@ -47,7 +49,7 @@ class GitHubIssuesRequest(BaseModel):
         default="To be determined",
         description="Tech stack (optional, will be suggested if not provided)"
     )
-    model: NovaModel = Field(default=NovaModel.PREMIER, description="Nova model to use")
+    model: NovaModel = Field(default=NovaModel.NOVA2LITE, description="Nova model to use")
 
 
 class PitchDeckRequest(BaseModel):
@@ -57,14 +59,13 @@ class PitchDeckRequest(BaseModel):
         default="",
         description="Detailed product description (optional)"
     )
-    model: NovaModel = Field(default=NovaModel.PREMIER, description="Nova model to use")
+    model: NovaModel = Field(default=NovaModel.NOVA2LITE, description="Nova model to use")
 
 
 class AutoDetectRequest(BaseModel):
     """Request that auto-detects which feature to use."""
     message: str = Field(..., description="Free-form user message", min_length=5)
-    model: NovaModel = Field(default=NovaModel.PREMIER, description="Nova model to use")
-    # Context from previous generations (optional)
+    model: NovaModel = Field(default=NovaModel.NOVA2LITE, description="Nova model to use")
     context: Optional[dict] = Field(
         default=None,
         description="Context from previous generations to chain features"
@@ -79,6 +80,14 @@ class GenerationResponse(BaseModel):
     content: str
     model_used: str
     tokens_used: Optional[int] = None
+    generation_time: Optional[float] = Field(
+        default=None,
+        description="Time in seconds to generate the response"
+    )
+    demo_mode: bool = Field(
+        default=False,
+        description="Whether this response was generated in demo mode"
+    )
 
 
 class AutoDetectResponse(BaseModel):
@@ -86,6 +95,14 @@ class AutoDetectResponse(BaseModel):
     detected_feature: FeatureType
     content: str
     model_used: str
+    generation_time: Optional[float] = Field(
+        default=None,
+        description="Time in seconds to generate the response"
+    )
+    demo_mode: bool = Field(
+        default=False,
+        description="Whether this response was generated in demo mode"
+    )
 
 
 class HealthResponse(BaseModel):
@@ -94,3 +111,4 @@ class HealthResponse(BaseModel):
     service: str
     version: str
     nova_models: dict
+    demo_mode: bool = False
