@@ -28,7 +28,7 @@ const TITLES = {
 
 const MODEL_OPTIONS = [
   { value: 'nova2lite', label: 'Nova 2 Lite',  desc: 'Default · Gen 2 · Fast' },
-  { value: 'nova_pro',  label: 'Nova Pro',     desc: 'Gen 1 · High quality' },
+  { value: 'nova2pro',  label: 'Nova 2 Pro',   desc: 'Gen 2 · High quality' },
   { value: 'premier',   label: 'Nova Premier', desc: 'Gen 1 · Most powerful' },
   { value: 'micro',     label: 'Nova Micro',   desc: 'Gen 1 · Fastest' },
 ];
