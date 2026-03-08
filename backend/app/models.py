@@ -12,7 +12,7 @@ class NovaModel(str, Enum):
     """Available Amazon Nova models."""
     # ── Nova 2 ──
     NOVA2LITE = "nova2lite"   # default — Nova 2 Lite (Gen 2, newest)
-    NOVA2PRO  = "nova2pro"    # Nova 2 Pro (Gen 2, high quality)
+    NOVA2PRO  = "nova2pro"    # Nova Pro Gen 1 (high quality)
     # ── Nova 1 ──
     PREMIER   = "premier"     # Nova Premier (most powerful)
     MICRO     = "micro"       # Nova Micro (fastest / intent detection)

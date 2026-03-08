@@ -14,7 +14,7 @@ Turn your startup idea into a comprehensive plan, technical architecture, develo
 > **#AmazonNova** | Category: **Agentic AI** | Hackathon: [Amazon Nova AI Hackathon on Devpost](https://amazonnovaai.devpost.com/)
 
 ![Amazon Nova AI](https://img.shields.io/badge/Amazon_Nova_AI-Powered-FF9900?style=for-the-badge&logo=amazon-aws)
-![Nova 2](https://img.shields.io/badge/Nova_2-Lite_%26_Pro-FF9900?style=for-the-badge&logo=amazon-aws)
+![Nova 2](https://img.shields.io/badge/Nova_2-Lite-FF9900?style=for-the-badge&logo=amazon-aws)
 ![Python](https://img.shields.io/badge/Python-FastAPI-3776AB?style=for-the-badge&logo=python)
 ![React](https://img.shields.io/badge/React-Vite-61DAFB?style=for-the-badge&logo=react)
 
@@ -60,7 +60,7 @@ cd ../frontend && npm install && npm run dev
 | Model | Bedrock Inference Profile ID | Role | Speed |
 |-------|------------------------------|------|-------|
 | **Nova 2 Lite** | `us.amazon.nova-2-lite-v1:0` | ⚡ Default — Gen 2 fast reasoning, great quality | ~4-8s |
-| **Nova 2 Pro** | `us.amazon.nova-pro-v1:0` | ✨ Gen 2 high quality, comprehensive outputs | ~6-10s |
+| **Nova Pro** | `us.amazon.nova-pro-v1:0` | ✨ Gen 1 high quality, comprehensive outputs | ~6-10s |
 | **Nova Premier** | `us.amazon.nova-premier-v1:0` | 🏆 Most powerful (selectable) | ~8-12s |
 | **Nova Micro** | `us.amazon.nova-micro-v1:0` | 🚀 Intent detection in Auto-Detect agent | ~2-4s |
 
@@ -120,7 +120,7 @@ Here's what each feature generates from a simple prompt like *"AI meeting assist
 
 ### Backend
 - **Python 3.11+** with **FastAPI**
-- **Amazon Bedrock** (Nova 2 Lite, Nova 2 Pro, Nova Premier, Nova Micro)
+- **Amazon Bedrock** (Nova 2 Lite, Nova Pro, Nova Premier, Nova Micro)
 - **boto3** for AWS integration
 - **slowapi** for rate limiting
 - **Pydantic v2** for request/response validation
@@ -339,10 +339,10 @@ learning style and pace"
 
 ## 👨‍💻 Built For
 
-**Amazon Nova AI Hackathon** — Demonstrating the power of Amazon Nova 2 Lite and Nova 2 Pro (Gen 2) alongside Nova Premier and Nova Micro for real-world startup tooling.
+**Amazon Nova AI Hackathon** — Demonstrating the power of Amazon Nova 2 Lite (Gen 2) alongside Nova Pro, Nova Premier, and Nova Micro for real-world startup tooling.
 
 ### What Makes This Special
-- 🧠 **Nova 2 Gen 2 models** — Uses Nova 2 Lite (default) and Nova 2 Pro for all generation; Nova Micro for fast intent detection
+- 🧠 **Nova 2 Lite (Gen 2)** — Default model for all 5 features; Nova Micro for fast intent detection
 - ⚡ **Production-ready** — Rate limiting, async safety, input validation, error handling
 - 🎨 **Beautiful UI** — Dark theme with feature-colored accents, Framer Motion animations, responsive design
 - 🧪 **Instantly demoable** — Works out of the box with demo mode (no AWS needed)
@@ -358,7 +358,7 @@ learning style and pace"
 
 ### Project Description *(copy-paste this into the Devpost submission form)*
 
-> Founder Copilot is an AI-powered startup helper agent that turns any startup idea into a complete founder package in seconds. Powered entirely by **Amazon Nova 2 Lite** and **Nova 2 Pro** (Gen 2) via Amazon Bedrock, it simulates a full founding team:
+> Founder Copilot is an AI-powered startup helper agent that turns any startup idea into a complete founder package in seconds. Powered by **Amazon Nova 2 Lite** (Gen 2, default) and **Nova Pro** via Amazon Bedrock, it simulates a full founding team:
 >
 > - 💡 **CEO** → Startup Plan (strategy, roadmap, KPIs)
 > - 🏗️ **CTO** → Technical Architecture (stack, schema, API design)
