@@ -34,7 +34,7 @@ Turn your startup idea into a comprehensive plan, technical architecture, develo
 Founder Copilot includes a **Demo Mode** that works without any AWS credentials. Just clone, install, and run:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/Founder-Copilot.git
+git clone https://github.com/omertt27/Founder-Copilot.git
 cd Founder-Copilot/backend && pip install -r requirements.txt && python run.py &
 cd ../frontend && npm install && npm run dev
 ```
@@ -143,7 +143,7 @@ Here's what each feature generates from a simple prompt like *"AI meeting assist
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/Founder-Copilot.git
+git clone https://github.com/omertt27/Founder-Copilot.git
 cd Founder-Copilot
 ```
 
@@ -383,7 +383,7 @@ learning style and pace"
 
 ```bash
 # Clone the repo
-git clone https://github.com/YOUR_USERNAME/Founder-Copilot.git
+git clone https://github.com/omertt27/Founder-Copilot.git
 cd Founder-Copilot
 
 # Start backend (Demo Mode works without AWS credentials)
