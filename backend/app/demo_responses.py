@@ -995,6 +995,14 @@ INTENT_KEYWORDS = {
 }
 
 
+async def get_demo_response(feature: str) -> tuple:
+    """Return a demo response with a realistic delay."""
+    await asyncio.sleep(random.uniform(1.0, 3.0))
+    content = DEMO_RESPONSES.get(feature, DEMO_STARTUP_PLAN)
+    tokens = DEMO_TOKEN_COUNTS.get(feature, 1500)
+    return content, tokens
+
+
 def detect_demo_intent(message: str) -> str:
     """Simple keyword-based intent detection for demo mode."""
     message_lower = message.lower()
@@ -1030,12 +1038,6 @@ async def get_demo_founder_package(idea: str) -> list[dict]:
             "status":          "success",
         })
     return steps
-    """Return a demo response with a realistic delay."""
-    # Simulate 1-3 seconds of "thinking" to feel realistic
-    await asyncio.sleep(random.uniform(1.0, 3.0))
-    content = DEMO_RESPONSES.get(feature, DEMO_STARTUP_PLAN)
-    tokens = DEMO_TOKEN_COUNTS.get(feature, 1500)
-    return content, tokens
 
 
 def stream_demo_response(feature: str):

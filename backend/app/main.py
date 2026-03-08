@@ -67,7 +67,7 @@ async def health_check():
         version="1.0.0",
         nova_models={
             "nova2lite":  settings.NOVA_2_LITE_MODEL_ID,
-            "nova2pro":   settings.NOVA_2_PRO_MODEL_ID,
+            "nova2pro":   settings.NOVA_PRO_MODEL_ID,
             "premier":    settings.NOVA_PREMIER_MODEL_ID,
             "micro":      settings.NOVA_MICRO_MODEL_ID,
         },
